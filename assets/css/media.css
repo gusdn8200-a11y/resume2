@@ -10,6 +10,12 @@
   .chip{padding:2px 5px}
 }
 
+@media (max-width: 1200px){
+  .ps-gallery{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 980px){
   .header{
     flex-wrap: nowrap;
@@ -58,7 +64,8 @@
     padding: 20px;
   }
   .drawer--left{
-    width: 90vw;
+    width: 100vw;
+    max-width: 100vw;
   }
   .drawer-close{
     top: 14px;
@@ -81,6 +88,13 @@
 }
 
 @media (max-width: 700px){
+  :root{
+    --badge-size: 72px;
+    --badge-gap: 8px;
+    --badge-right: 18px;
+    --badge-top: 14px;
+    --badge-radius: 12px;
+  }
   .page{height: 100svh; min-height: 100svh; padding: 18px 16px 10px}
   .header{
     display:grid;
@@ -164,12 +178,32 @@
   .scroll-gauge-track{
     width: clamp(74px, 26vw, 104px);
   }
+  .badge-wrap{
+    top: var(--badge-top);
+    bottom: auto;
+    right: var(--badge-right);
+    left: auto;
+    transform: none;
+    gap: 6px;
+  }
+  .badge-wrap--left{
+    top: var(--badge-top);
+    right: var(--badge-right);
+    left: auto;
+  }
+  .badge-wrap:not(.badge-wrap--left){
+    top: calc(var(--badge-top) + var(--badge-size) + var(--badge-gap));
+  }
+  .badge-btn{
+    padding: 10px 8px;
+    font-size: 14px;
+  }
   .ps-gallery{
     grid-template-columns: minmax(0, 1fr);
   }
   .ps-main,
   .ps-sub img{
-    height: clamp(220px, 60vw, 340px);
+    height: auto;
   }
 }
 

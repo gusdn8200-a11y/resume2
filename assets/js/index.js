@@ -36,7 +36,6 @@ const isTouchDevice = () => (
 );
 const hasInteractiveLayerOpen = () => (
   $('#imageModal').hasClass('is-open') ||
-  $('#resumePanel').hasClass('is-open') ||
   $('#psPanel').hasClass('is-open') ||
   $('#videoModal').hasClass('is-open') ||
   $('#introOverlay').hasClass('is-active')
@@ -287,27 +286,12 @@ const setDrawerState = ($panel, $backdrop, $toggle, willOpen) => {
   }
 };
 
-const toggleResumePanel = (forceOpen) => {
-  const $panel = $('#resumePanel');
-  const $backdrop = $('#resumeBackdrop');
-  const $toggle = $('#badgeToggle');
-  if ($panel.length === 0) return;
-  const willOpen = typeof forceOpen === 'boolean' ? forceOpen : !$panel.hasClass('is-open');
-  if (willOpen) {
-    setDrawerState($('#psPanel'), $('#psBackdrop'), $('#psToggle'), false);
-  }
-  setDrawerState($panel, $backdrop, $toggle, willOpen);
-};
-
 const togglePsPanel = (forceOpen) => {
   const $panel = $('#psPanel');
   const $backdrop = $('#psBackdrop');
   const $toggle = $('#psToggle');
   if ($panel.length === 0) return;
   const willOpen = typeof forceOpen === 'boolean' ? forceOpen : !$panel.hasClass('is-open');
-  if (willOpen) {
-    setDrawerState($('#resumePanel'), $('#resumeBackdrop'), $('#badgeToggle'), false);
-  }
   setDrawerState($panel, $backdrop, $toggle, willOpen);
 };
 
@@ -423,6 +407,7 @@ const holdThumbLoopAfterArrow = () => {
 };
 
 let lastTouchY = 0;
+let lastTouchX = 0;
 let touchScrollSyncFrame = 0;
 
 const handleWheel = (event) => {
@@ -439,6 +424,7 @@ const handleTouchStart = (event) => {
   const touches = event.originalEvent.touches;
   if (!touches || touches.length === 0) return;
   lastTouchY = touches[0].clientY;
+  lastTouchX = touches[0].clientX;
   copyState.intent = 0;
 };
 
@@ -448,11 +434,15 @@ const handleTouchMove = (event) => {
   const touches = event.originalEvent.touches;
   if (!touches || touches.length === 0) return;
   const currentY = touches[0].clientY;
-  const delta = lastTouchY - currentY;
+  const currentX = touches[0].clientX;
+  const deltaY = lastTouchY - currentY;
+  const deltaX = lastTouchX - currentX;
   lastTouchY = currentY;
-  if (Math.abs(delta) < 1) return;
+  lastTouchX = currentX;
+  if (Math.abs(deltaX) > Math.abs(deltaY)) return;
+  if (Math.abs(deltaY) < 1) return;
   event.preventDefault();
-  queueCopyByDelta(delta, COPY_TOUCH_THRESHOLD);
+  queueCopyByDelta(deltaY, COPY_TOUCH_THRESHOLD);
 };
 
 $(function () {
@@ -544,14 +534,12 @@ $(function () {
   $('#imageModal').on('click', '.image-close', closeImageModal);
   $('#psToggle').on('click', () => togglePsPanel());
   $('#psPanel').on('click', '.drawer-close', () => togglePsPanel(false));
-  $('#badgeToggle').on('click', () => toggleResumePanel());
-  $('#resumePanel').on('click', '.drawer-close', () => toggleResumePanel(false));
 
   if (!touchDevice) {
     $(window).on('wheel', handleWheel);
-    $(window).on('touchmove', handleTouchMove);
   }
   $(window).on('touchstart', handleTouchStart);
+  $(window).on('touchmove', handleTouchMove);
   $(window).on('load resize orientationchange', () => {
     updateThumbLoop();
     if (touchDevice) {
@@ -577,7 +565,6 @@ $(function () {
       closePreview();
       closeImageModal();
       togglePsPanel(false);
-      toggleResumePanel(false);
     }
   });
 });

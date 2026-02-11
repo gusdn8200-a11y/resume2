@@ -161,14 +161,7 @@
     scroll-snap-stop: always;
   }
   .thumb-nav{
-    left: 0;
-    right: 0;
-    bottom: -8px;
-  }
-  .thumb-nav-btn{
-    width: 40px;
-    height: 40px;
-    font-size: 19px;
+    display: none;
   }
   .scroll-gauge{
     left: 12px;
@@ -190,9 +183,6 @@
     top: var(--badge-top);
     right: var(--badge-right);
     left: auto;
-  }
-  .badge-wrap:not(.badge-wrap--left){
-    top: calc(var(--badge-top) + var(--badge-size) + var(--badge-gap));
   }
   .badge-btn{
     padding: 10px 8px;

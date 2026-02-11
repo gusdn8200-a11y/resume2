@@ -529,7 +529,7 @@ body{
   z-index: 32;
   align-items:center;
   justify-content:center;
-  background: rgba(6,5,4,.55);
+  background: rgba(24,22,20,.98);
   backdrop-filter: blur(4px);
 }
 .image-modal.is-open{display:flex}

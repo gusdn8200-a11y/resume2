@@ -277,9 +277,30 @@ const closeImageModal = () => {
 
 const setDrawerState = ($panel, $backdrop, $toggle, willOpen) => {
   if ($panel.length === 0) return;
+  const panelEl = $panel[0];
+  if (!willOpen) {
+    const active = document.activeElement;
+    if (active && panelEl.contains(active)) {
+      if ($toggle && $toggle.length) {
+        $toggle[0].focus();
+      } else if (active.blur) {
+        active.blur();
+      }
+    }
+  }
   $panel.toggleClass('is-open', willOpen).attr('aria-hidden', String(!willOpen));
+  if (willOpen) {
+    $panel.removeAttr('inert');
+  } else {
+    $panel.attr('inert', '');
+  }
   if ($backdrop && $backdrop.length) {
     $backdrop.toggleClass('is-open', willOpen).attr('aria-hidden', String(!willOpen));
+    if (willOpen) {
+      $backdrop.removeAttr('inert');
+    } else {
+      $backdrop.attr('inert', '');
+    }
   }
   if ($toggle && $toggle.length) {
     $toggle.attr('aria-expanded', String(willOpen));
@@ -413,7 +434,8 @@ let touchScrollSyncFrame = 0;
 const handleWheel = (event) => {
   if (!copyState.$line) return;
   if (hasInteractiveLayerOpen()) return;
-  const delta = event.originalEvent.deltaY;
+  const sourceEvent = event.originalEvent || event;
+  const delta = sourceEvent.deltaY;
   if (!Number.isFinite(delta) || Math.abs(delta) < 1) return;
 
   event.preventDefault();
@@ -421,7 +443,8 @@ const handleWheel = (event) => {
 };
 
 const handleTouchStart = (event) => {
-  const touches = event.originalEvent.touches;
+  const sourceEvent = event.originalEvent || event;
+  const touches = sourceEvent.touches;
   if (!touches || touches.length === 0) return;
   lastTouchY = touches[0].clientY;
   lastTouchX = touches[0].clientX;
@@ -431,7 +454,8 @@ const handleTouchStart = (event) => {
 const handleTouchMove = (event) => {
   if (!copyState.$line) return;
   if (hasInteractiveLayerOpen()) return;
-  const touches = event.originalEvent.touches;
+  const sourceEvent = event.originalEvent || event;
+  const touches = sourceEvent.touches;
   if (!touches || touches.length === 0) return;
   const currentY = touches[0].clientY;
   const currentX = touches[0].clientX;
@@ -536,10 +560,10 @@ $(function () {
   $('#psPanel').on('click', '.drawer-close', () => togglePsPanel(false));
 
   if (!touchDevice) {
-    $(window).on('wheel', handleWheel);
+    window.addEventListener('wheel', handleWheel, { passive: false });
   }
-  $(window).on('touchstart', handleTouchStart);
-  $(window).on('touchmove', handleTouchMove);
+  window.addEventListener('touchstart', handleTouchStart, { passive: true });
+  window.addEventListener('touchmove', handleTouchMove, { passive: false });
   $(window).on('load resize orientationchange', () => {
     updateThumbLoop();
     if (touchDevice) {

@@ -1,10 +1,11 @@
 @charset "utf-8";
 
 @media (max-width: 1400px){
-  .header{gap:4px; padding-bottom:8px}
-  .card{padding:6px 4px 8px}
-  .card h3{font-size:14px; margin-bottom:3px}
-  .card p, .card li{font-size:13px; line-height:1.55}
+  .header{gap:10px; padding-bottom:10px}
+  .card{padding:10px 8px 12px}
+  .card h3{font-size:14px; margin-bottom:7px}
+  .card p, .card li{font-size:13px; line-height:1.62}
+  .card ul{gap:6px}
   .avatar{width:32px;height:32px;font-size:13px}
   .meta{margin-top:4px; gap:6px; font-size:12px}
   .chip{padding:2px 5px}
@@ -19,23 +20,24 @@
 @media (max-width: 980px){
   .header{
     flex-wrap: nowrap;
-    gap: 8px;
+    gap: 12px;
     height: 30vh;
     align-items: flex-start;
     padding-top: 6px;
     padding-bottom: 6px;
   }
-  .card{flex: 1 1 0; padding: 6px 4px 8px}
+  .card{flex: 1 1 0; padding: 10px 8px 12px}
   .card:nth-child(1){flex: 1 1 0}
   .card h3{
     font-size: 14px;
-    margin-bottom: 4px;
+    margin-bottom: 7px;
   }
   .card p,
   .card li{
     font-size: 13px;
-    line-height: 1.62;
+    line-height: 1.68;
   }
+  .card ul{gap:6px}
   .copy-line{
     font-size: clamp(18px, 2.6vw, 30px);
   }
@@ -92,7 +94,7 @@
     --badge-size: 72px;
     --badge-gap: 8px;
     --badge-right: 18px;
-    --badge-top: 14px;
+    --badge-top: 28px;
     --badge-radius: 12px;
   }
   .page{height: 100svh; min-height: 100svh; padding: 18px 16px 10px}
@@ -100,7 +102,7 @@
     display:grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
-    gap: 12px;
+    gap: 16px;
     height: auto;
     padding-top: 8px;
     padding-bottom: 8px;

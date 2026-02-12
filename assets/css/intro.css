@@ -48,7 +48,7 @@
 }
 
 .intro-name{
-  font-family: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", "Times New Roman", serif;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-size: clamp(19px, 2.1vw, 25px);
   letter-spacing: .08em;
   color: rgba(255,255,255,1);
@@ -56,7 +56,7 @@
 }
 
 .intro-label{
-  font-family: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", "Times New Roman", serif;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-size: clamp(15px, 1.55vw, 20px);
   letter-spacing: .12em;
   color: rgba(255,243,230,.94);
@@ -66,7 +66,7 @@
   display:flex;
   justify-content:center;
   gap: 9px;
-  font-family: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", "Times New Roman", serif;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-size: clamp(38px, 6vw, 96px);
   letter-spacing: .17em;
   font-weight: 700;
@@ -100,7 +100,7 @@
 .intro-value-main,
 .intro-value-sub{
   margin: 0;
-  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   line-height: 1.72;
   letter-spacing: .005em;
 }
@@ -122,7 +122,7 @@
   padding: 18px 44px;
   min-width: 232px;
   border-radius: 999px;
-  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-size: 17px;
   font-weight: 600;
   letter-spacing: .08em;
@@ -151,11 +151,25 @@
   z-index: 1;
   right: clamp(16px, 2.4vw, 34px);
   bottom: clamp(14px, 2.4vw, 30px);
-  font-family: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", "Times New Roman", serif;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-size: clamp(18px, 2.2vw, 30px);
   font-weight: 600;
   letter-spacing: .08em;
   color: rgba(255,255,255,.72);
+  text-shadow: 0 6px 20px rgba(0,0,0,.18);
+  pointer-events: none;
+}
+
+.intro-en{
+  position: absolute;
+  z-index: 1;
+  left: clamp(16px, 2.4vw, 34px);
+  bottom: clamp(14px, 2.4vw, 30px);
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  font-size: clamp(16px, 2vw, 26px);
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.78);
   text-shadow: 0 6px 20px rgba(0,0,0,.18);
   pointer-events: none;
 }

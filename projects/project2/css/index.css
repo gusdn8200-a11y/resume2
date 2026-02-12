@@ -240,7 +240,8 @@ body{
   max-width: min(560px, 60vw);
   word-break: break-word;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(0,0,0,.36);
+  -webkit-text-stroke: 2.6px rgba(0,0,0,.55);
+  text-shadow: 0 6px 18px rgba(0,0,0,.12);
   transform: skewX(-8deg);
   will-change: transform, opacity;
   display:flex;

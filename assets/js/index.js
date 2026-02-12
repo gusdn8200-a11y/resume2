@@ -1,9 +1,7 @@
 const DEFAULT_VIDEO = './assets/img/v_1.mp4';
 
 const copyTexts = [
-  '디자인 <span class="copy-key">의도</span>를 정확히 구현한다.',
-  '<span class="copy-key">반응형·접근성·성능</span>을 기본으로 한다.',
-  '형태보다 <span class="copy-key">경험</span>을 설계한다.',
+  '어색한 <span class="copy-key">1px</span>을 범인으로 잡습니다.<br>범인은 항상 <span class="copy-key">디테일</span>에 있습니다.',
 ];
 
 const copyState = {

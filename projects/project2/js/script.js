@@ -192,7 +192,7 @@
       const x = Math.cos(angle) * 18;
       const depthScale = 0.78 + ((z + zRadius) / (zRadius * 2)) * 0.4;
       row.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) translateZ(${z}px) scale(${depthScale})`;
-      row.style.opacity = i === currentIndex ? "1" : String(0.2 + ((z + zRadius) / (zRadius * 2)) * 0.55);
+      row.style.opacity = i === currentIndex ? "1" : String(0.35 + ((z + zRadius) / (zRadius * 2)) * 0.55);
       row.style.zIndex = String(100 - Math.abs(offset));
     });
   }

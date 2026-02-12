@@ -65,4 +65,24 @@
     gap:8px;
     text-align:center;
   }
+  .subscribe-page{
+    width:100%;
+    padding:28px 20px;
+  }
+  .subscribe-form{
+    flex-direction:column;
+  }
+  .subscribe-form--simple{
+    max-width:100%;
+  }
+  .subscribe-grid{
+    grid-template-columns: 1fr;
+  }
+  .check-grid{
+    grid-template-columns: 1fr;
+  }
+  .subscribe-input,
+  .subscribe-btn{
+    width:100%;
+  }
 }

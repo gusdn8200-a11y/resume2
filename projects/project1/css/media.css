@@ -199,10 +199,10 @@
     height: 40px;
   }
   .carousel-arrow--prev{
-    left: 12px;
+    left: 28px;
   }
   .carousel-arrow--next{
-    right: 12px;
+    right: 28px;
   }
   .story-left p,
   .story-right p{

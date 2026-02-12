@@ -199,45 +199,73 @@
       </section>
 
       <section class="page page-v4" aria-label="page 4">
-        <div class="page-inner">
-          <div class="cards cards-mosaic">
-          <article class="card">
-            <div class="card-meta"><span class="pill">December 23, 2025</span></div>
-            <h3 class="card-title">What’s Your Holiday Style?</h3>
-            <p class="card-text">Find your holiday style</p>
-            <div class="card-foot"><span class="by">di Giulia</span><a class="more" href="#">LEGGI TUTTO</a></div>
-          </article>
-
-          <article class="card">
-            <div class="card-meta"><span class="pill">Holiday Quiz</span></div>
-            <h3 class="card-title">Pick your mood</h3>
-            <p class="card-text">Quiet nights, bold sparkle, or playful chaos? Start with a vibe.</p>
-            <div class="card-foot"><span class="by">Holiday Style</span><a class="more" href="#">Take the quiz</a></div>
-          </article>
-
-          <article class="card card-teal">
-            <div class="card-meta"><span class="pill">Holiday Cards</span></div>
-            <h3 class="card-title">Find your lucky card</h3>
-            <div class="mark mark-faint"></div>
-            <p class="card-text">Each pick tells a different story, playful or serene.</p>
-            <div class="card-foot"><span class="by">Holiday Style</span><a class="more" href="#">See options</a></div>
-          </article>
-
-          <article class="card card-media">
-            <img class="card-img" src="./img/s4.jpeg" alt="">
-          </article>
-
-          <article class="card card-orange">
-            <h3 class="card-title">Your holiday crew</h3>
-            <p class="card-text">Solo reset, cozy two, or full-house energy.</p>
-          </article>
-
-          <article class="card">
-            <div class="card-meta"><span class="pill">Holiday Guide</span></div>
-            <h3 class="card-title">Small rituals, big feelings</h3>
-            <p class="card-text">A few simple choices can shape the whole season.</p>
-            <div class="card-foot"><span class="by">Holiday Style</span><a class="more" href="#">Read guide</a></div>
-          </article>
+        <div class="page-inner page-inner--subscribe">
+          <div class="subscribe-page" aria-label="Newsletter signup">
+            <p class="subscribe-kicker">NEWSLETTER</p>
+            <h2 class="subscribe-title">뉴스레터 구독</h2>
+            <p class="subscribe-desc">최신 디자인 스토리와 인사이트를 메일로 보내드립니다.</p>
+            <form class="subscribe-form subscribe-form--simple" action="#" onsubmit="return false;">
+              <div class="subscribe-grid">
+                <div class="field">
+                  <label class="field-label" for="newsletterName">이름</label>
+                  <input id="newsletterName" class="subscribe-input" type="text" placeholder="이름을 입력하세요" required>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="newsletterEmail">이메일</label>
+                  <input id="newsletterEmail" class="subscribe-input" type="email" placeholder="your@email.com" required>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="newsletterCompany">회사/소속</label>
+                  <input id="newsletterCompany" class="subscribe-input" type="text" placeholder="선택 입력">
+                </div>
+                <div class="field">
+                  <label class="field-label" for="newsletterRole">직군</label>
+                  <select id="newsletterRole" class="subscribe-input">
+                    <option value="">선택하세요</option>
+                    <option>디자이너</option>
+                    <option>퍼블리셔</option>
+                    <option>개발자</option>
+                    <option>기획/PM</option>
+                    <option>마케터</option>
+                    <option>기타</option>
+                  </select>
+                </div>
+                <fieldset class="field field--full">
+                  <legend class="field-label">관심 분야</legend>
+                  <div class="check-grid">
+                    <label class="check">
+                      <input type="checkbox" name="interest" value="uiux">
+                      <span>UI/UX</span>
+                    </label>
+                    <label class="check">
+                      <input type="checkbox" name="interest" value="branding">
+                      <span>브랜딩</span>
+                    </label>
+                    <label class="check">
+                      <input type="checkbox" name="interest" value="motion">
+                      <span>모션</span>
+                    </label>
+                    <label class="check">
+                      <input type="checkbox" name="interest" value="a11y">
+                      <span>접근성</span>
+                    </label>
+                  </div>
+                </fieldset>
+                <div class="field field--full">
+                  <label class="field-label" for="newsletterFreq">받는 주기</label>
+                  <select id="newsletterFreq" class="subscribe-input">
+                    <option>월 1회</option>
+                    <option>격주 1회</option>
+                    <option>주 1회</option>
+                  </select>
+                </div>
+                <label class="check check--agree field--full">
+                  <input type="checkbox" required>
+                  <span>개인정보 수집 및 이용에 동의합니다.</span>
+                </label>
+              </div>
+              <button class="subscribe-btn" type="submit">구독하기</button>
+            </form>
           </div>
         </div>
       </section>

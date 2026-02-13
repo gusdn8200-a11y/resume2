@@ -1,7 +1,7 @@
 $(function () {
-  const $overlay = $('#introOverlay');
-  const $enterBtn = $('#introEnterBtn');
-  const $backBtn = $('#introBackBtn');
+  const $overlay = $('#intro_overlay');
+  const $enterBtn = $('#intro_enter_btn');
+  const $backBtn = $('#intro_back_btn');
   if (!$overlay.length || !$enterBtn.length) return;
   let closeTimer = 0;
 
@@ -12,24 +12,24 @@ $(function () {
     }
 
     $overlay.css('display', 'grid');
-    $overlay.removeClass('is-done').attr('aria-hidden', 'false');
-    $('body').addClass('intro-lock');
+    $overlay.removeClass('is_done').attr('aria-hidden', 'false');
+    $('body').addClass('intro_lock');
 
     requestAnimationFrame(function () {
-      $overlay.addClass('is-active');
+      $overlay.addClass('is_active');
     });
 
     $(document).trigger('intro:opened');
   }
 
   function closeIntro() {
-    if (!$overlay.hasClass('is-active')) return;
-    $overlay.removeClass('is-active').addClass('is-done').attr('aria-hidden', 'true');
-    $('body').removeClass('intro-lock');
+    if (!$overlay.hasClass('is_active')) return;
+    $overlay.removeClass('is_active').addClass('is_done').attr('aria-hidden', 'true');
+    $('body').removeClass('intro_lock');
 
     closeTimer = window.setTimeout(function () {
       closeTimer = 0;
-      if ($overlay.hasClass('is-active')) return;
+      if ($overlay.hasClass('is_active')) return;
       $overlay.css('display', 'none');
     }, 560);
   }
@@ -50,7 +50,7 @@ $(function () {
   }
 
   $(document).on('keydown.intro', function (event) {
-    if (event.key === 'Enter' && $overlay.hasClass('is-active')) {
+    if (event.key === 'Enter' && $overlay.hasClass('is_active')) {
       event.preventDefault();
       $(document).trigger('intro:enter');
       closeIntro();

@@ -12,35 +12,35 @@
 </head>
 
 <body>
-  <div class="intro-overlay" id="introOverlay" aria-hidden="true">
-    <div class="intro-inner">
-      <div class="intro-word" aria-label="Portfolio">
-        <span class="intro-letter" style="--dx:-140px; --dy:-90px; --delay:0s;">P</span>
-        <span class="intro-letter" style="--dx:160px; --dy:-100px; --delay:.12s;">O</span>
-        <span class="intro-letter" style="--dx:-180px; --dy:50px; --delay:.24s;">R</span>
-        <span class="intro-letter" style="--dx:190px; --dy:70px; --delay:.36s;">T</span>
-        <span class="intro-letter" style="--dx:-150px; --dy:130px; --delay:.48s;">F</span>
-        <span class="intro-letter" style="--dx:170px; --dy:130px; --delay:.60s;">O</span>
-        <span class="intro-letter" style="--dx:-160px; --dy:-20px; --delay:.72s;">L</span>
-        <span class="intro-letter" style="--dx:170px; --dy:-10px; --delay:.84s;">I</span>
-        <span class="intro-letter" style="--dx:-120px; --dy:80px; --delay:.96s;">O</span>
+  <div class="intro_overlay" id="intro_overlay" aria-hidden="true">
+    <div class="intro_inner">
+      <div class="intro_word" aria-label="Portfolio">
+        <span class="intro_letter" style="--dx:-140px; --dy:-90px; --delay:0s;">P</span>
+        <span class="intro_letter" style="--dx:160px; --dy:-100px; --delay:.12s;">O</span>
+        <span class="intro_letter" style="--dx:-180px; --dy:50px; --delay:.24s;">R</span>
+        <span class="intro_letter" style="--dx:190px; --dy:70px; --delay:.36s;">T</span>
+        <span class="intro_letter" style="--dx:-150px; --dy:130px; --delay:.48s;">F</span>
+        <span class="intro_letter" style="--dx:170px; --dy:130px; --delay:.60s;">O</span>
+        <span class="intro_letter" style="--dx:-160px; --dy:-20px; --delay:.72s;">L</span>
+        <span class="intro_letter" style="--dx:170px; --dy:-10px; --delay:.84s;">I</span>
+        <span class="intro_letter" style="--dx:-120px; --dy:80px; --delay:.96s;">O</span>
       </div>
 
-      <div class="intro-value" aria-label="핵심 가치">
-        <p class="intro-value-main">디자인 의도를 정확히 구현합니다.</p>
-        <p class="intro-value-sub">반응형 · 접근성 · 성능을 함께 챙깁니다.</p>
+      <div class="intro_value" aria-label="핵심 가치">
+        <p class="intro_value_main">디자인 의도를 정확히 구현합니다.</p>
+        <p class="intro_value_sub">반응형 · 접근성 · 성능을 함께 챙깁니다.</p>
       </div>
 
-      <button type="button" class="intro-enter" id="introEnterBtn">프로젝트 보기</button>
+      <button type="button" class="intro_enter" id="intro_enter_btn">프로젝트 보기</button>
     </div>
-    <div class="intro-en">Park Hyunwoo</div>
-    <div class="intro-year" aria-hidden="true">&copy; 2026</div>
+    <div class="intro_en">Park Hyunwoo</div>
+    <div class="intro_year" aria-hidden="true">&copy; 2026</div>
   </div>
   <button
     type="button"
-    class="intro-back-btn"
-    id="introBackBtn"
-    aria-controls="introOverlay"
+    class="intro_back_btn"
+    id="intro_back_btn"
+    aria-controls="intro_overlay"
     aria-label="포트폴리오 인트로 화면으로 이동">
   </button>
   <div class="page">
@@ -84,101 +84,101 @@
     </header>
 
     <main class="hero">
-      <div class="hero-row">
-        <div id="speechStream" class="speech-stream" aria-live="polite" aria-atomic="false"></div>
+      <div class="hero_row">
+        <div id="speech_stream" class="speech_stream" aria-live="polite" aria-atomic="false"></div>
         <div class="copy">
-          <p class="hero-main-copy">어색한 <span class="copy-key">1px</span>를 범인으로 잡습니다.<br>범인은 항상 <span class="copy-key">디테일</span>에 있습니다.</p>
+          <p class="hero_text">어색한 <span class="copy_key">1px</span>를 범인으로 잡습니다.<br>범인은 항상 <span class="copy_key">디테일</span>에 있습니다.</p>
         </div>
       </div>
     </main>
 
-    <div class="badge-wrap badge-wrap--left">
-      <button class="badge-btn badge-btn--ps" id="psToggle" type="button" aria-controls="psPanel" aria-expanded="false">
-        <span class="badge-line">Design</span>
-        <span class="badge-line">Assets</span>
+    <div class="badge_wrap badge_left">
+      <button class="badge_btn badge_ps" id="ps_toggle" type="button" aria-controls="ps_panel" aria-expanded="false">
+        <span class="badge_line">Design</span>
+        <span class="badge_line">Assets</span>
       </button>
     </div>
 
 
     <footer class="rail">
-      <div class="rail-inner">
-        <div class="thumbs" id="thumbRow" aria-label="Projects">
-          <div class="thumbs-track" id="thumbTrack">
-            <div class="thumb-item" tabindex="0"
+      <div class="rail_inner">
+        <div class="thumbs" id="thumb_row" aria-label="Projects">
+          <div class="thumbs_track" id="thumb_track">
+            <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_1.mp4"
                 data-home="./assets/img/1.png">
-              <img class="thumb-img" src="./assets/img/s_1.png" alt="Project 1 preview" loading="lazy" decoding="async">
-              <div class="thumb-actions">
-                <button class="thumb-action thumb-action-preview" type="button">상세페이지 설명</button>
-                <a class="thumb-action thumb-action-detail" href="./projects/project1/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
+              <img class="thumb_img" src="./assets/img/s_1.png" alt="Project 1 preview" loading="lazy" decoding="async">
+              <div class="thumb_btns">
+                <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
+                <a class="thumb_btn thumb_btn_link" href="./projects/project1/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
               </div>
             </div>
 
-            <div class="thumb-item" tabindex="0"
+            <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_2.mp4"
                  data-home="./assets/img/2.png">
-              <img class="thumb-img" src="./assets/img/s_2.png" alt="Project 2 preview" loading="lazy" decoding="async">
-              <div class="thumb-actions">
-                <button class="thumb-action thumb-action-preview" type="button">상세페이지 설명</button>
-                <a class="thumb-action thumb-action-detail" href="./projects/project2/index.html" target="_blank" rel="noopener noreferrer">페이지 보러가기</a>
+              <img class="thumb_img" src="./assets/img/s_2.png" alt="Project 2 preview" loading="lazy" decoding="async">
+              <div class="thumb_btns">
+                <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
+                <a class="thumb_btn thumb_btn_link" href="./projects/project2/index.html" target="_blank" rel="noopener noreferrer">페이지 보러가기</a>
               </div>
             </div>
 
-            <div class="thumb-item" tabindex="0"
+            <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_3.mp4"
                  data-home="./assets/img/3.png">
-              <img class="thumb-img" src="./assets/img/s_3.png" alt="Project 3 preview" loading="lazy" decoding="async">
-              <div class="thumb-actions">
-                <button class="thumb-action thumb-action-preview" type="button">상세페이지 설명</button>
-                <a class="thumb-action thumb-action-detail" href="./projects/project3/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
+              <img class="thumb_img" src="./assets/img/s_3.png" alt="Project 3 preview" loading="lazy" decoding="async">
+              <div class="thumb_btns">
+                <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
+                <a class="thumb_btn thumb_btn_link" href="./projects/project3/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
               </div>
             </div>
 
-            <div class="thumb-item" tabindex="0"
+            <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_4.mp4"
                  data-home="./assets/img/4.png">
-              <img class="thumb-img" src="./assets/img/s_4.png" alt="Project 4 preview" loading="lazy" decoding="async">
-              <div class="thumb-actions">
-                <button class="thumb-action thumb-action-preview" type="button">상세페이지 설명</button>
-                <a class="thumb-action thumb-action-detail" href="./projects/project4/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
+              <img class="thumb_img" src="./assets/img/s_4.png" alt="Project 4 preview" loading="lazy" decoding="async">
+              <div class="thumb_btns">
+                <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
+                <a class="thumb_btn thumb_btn_link" href="./projects/project4/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
               </div>
             </div>
 
-            <div class="thumb-item" tabindex="0"
+            <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_5.mp4"
                  data-home="./assets/img/5.png">
-              <img class="thumb-img" src="./assets/img/s_5.png" alt="Project 5 preview" loading="lazy" decoding="async">
-              <div class="thumb-actions">
-                <button class="thumb-action thumb-action-preview" type="button">상세페이지 설명</button>
-                <a class="thumb-action thumb-action-detail" href="./projects/project5/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
+              <img class="thumb_img" src="./assets/img/s_5.png" alt="Project 5 preview" loading="lazy" decoding="async">
+              <div class="thumb_btns">
+                <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
+                <a class="thumb_btn thumb_btn_link" href="./projects/project5/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
               </div>
             </div>
 
-            <div class="thumb-item" tabindex="0"
+            <div class="thumb_item" tabindex="0"
                  data-video="./assets/img/v_6.mp4"
                  data-home="./assets/img/6.png">
-              <img class="thumb-img" src="./assets/img/s_6.png" alt="Project 06 preview" loading="lazy" decoding="async">
-              <div class="thumb-actions">
-                <button class="thumb-action thumb-action-preview" type="button">상세페이지 설명</button>
-                <a class="thumb-action thumb-action-detail" href="./projects/project6/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
+              <img class="thumb_img" src="./assets/img/s_6.png" alt="Project 06 preview" loading="lazy" decoding="async">
+              <div class="thumb_btns">
+                <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
+                <a class="thumb_btn thumb_btn_link" href="./projects/project6/index.html" target="_blank" rel="noopener noreferrer">페이지보러가기</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="thumb-nav" aria-label="Project slider controls">
-        <button class="thumb-nav-btn thumb-nav-btn--prev" id="thumbPrev" type="button" aria-label="이전 프로젝트">&#8592;</button>
-        <button class="thumb-nav-btn thumb-nav-btn--next" id="thumbNext" type="button" aria-label="다음 프로젝트">&#8594;</button>
+      <div class="thumb_nav" aria-label="Project slider controls">
+        <button class="thumb_nav_btn thumb_prev_btn" id="thumb_prev" type="button" aria-label="이전 프로젝트">&#8592;</button>
+        <button class="thumb_nav_btn thumb_next_btn" id="thumb_next" type="button" aria-label="다음 프로젝트">&#8594;</button>
       </div>
     </footer>
   </div>
 
-  <div class="video-modal" id="videoModal" aria-hidden="true">
-    <div class="video-card" role="dialog" aria-modal="true" aria-label="Project preview">
-      <div class="video-hint">
+  <div class="video_modal" id="video_modal" aria-hidden="true">
+    <div class="video_card" role="dialog" aria-modal="true" aria-label="Project preview">
+      <div class="video_hint">
         Preview <span class="kbd">ESC</span>
       </div>
-      <video id="previewVideo"
+      <video id="preview_video"
              muted
              playsinline
              preload="metadata"
@@ -186,48 +186,192 @@
     </div>
   </div>
 
-  <div class="image-modal" id="imageModal" aria-hidden="true">
-    <div class="image-card" role="dialog" aria-modal="true" aria-label="Image preview">
-      <button class="image-close" type="button" aria-label="Close image preview">✖</button>
-      <img id="previewImage" alt="preview" />
+  <div class="image_modal" id="image_modal" aria-hidden="true">
+    <div class="image_card" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="image_close" type="button" aria-label="Close image preview">✖</button>
+      <img id="preview_image" alt="preview" />
     </div>
   </div>
 
-  <div class="drawer-backdrop" id="psBackdrop" aria-hidden="true"></div>
-  <aside class="drawer drawer--left" id="psPanel" aria-hidden="true">
-    <button class="drawer-close" type="button" aria-label="Close photoshop panel">✖</button>
-    <div class="drawer-body drawer-body--ps">
-      <div class="ps-gallery">
-        <section class="ps-group" aria-label="Photoshop set 1">
-          <img class="ps-main" src="./poto/1.png" alt="Photoshop main 1" loading="lazy" decoding="async">
-          <div class="ps-sub">
-            <img src="./poto/1_1.png" alt="Photoshop detail 1-1" loading="lazy" decoding="async">
-            <img src="./poto/1_2.png" alt="Photoshop detail 1-2" loading="lazy" decoding="async">
-            <img src="./poto/1_3.png" alt="Photoshop detail 1-3" loading="lazy" decoding="async">
+  <div class="drawer_bg" id="ps_backdrop" aria-hidden="true"></div>
+  <aside class="drawer drawer_left" id="ps_panel" aria-hidden="true">
+    <button class="drawer_close" type="button" aria-label="Close photoshop panel">✖</button>
+    <div class="drawer_body drawer_ps_body">
+      <div class="ps_grid">
+        <section class="ps_group" aria-label="Photoshop set 1">
+          <div class="ps_main ps_flip" tabindex="0" aria-label="로고 설명 카드 1">
+            <div class="ps_inner">
+              <div class="ps_face ps_front">
+                <img src="./poto/1.png" alt="Photoshop main 1" loading="lazy" decoding="async">
+              </div>
+              <div class="ps_face ps_back">
+                <p class="ps_text">꿀방울·벌·벌집을 결합해 자연 유래 이미지를 직관적으로 전달하고, 친근한 캐릭터 톤에 심볼+워드마크 구조로 다양한 매체에 확장 적용되도록 설계했습니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ps_sub">
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 1-1">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/1_1.png" alt="Photoshop detail 1-1" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">제품 컨셉 정리: 프로폴리스를 '부담 없는 데일리 한 스푼' 루틴으로 정의하고, 꿀/티(그린) 무드로 자연스러움을 강조했습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 1-2">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/1_2.png" alt="Photoshop detail 1-2" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">패키지/라벨 디자인: 심볼(벌+드롭)과 한글 로고를 중심으로 가독성을 잡고, 컬러는 허니 앰버 + 소프트 핑크로 친근하고 깨끗한 인상을 만들었습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 1-3">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/1_3.png" alt="Photoshop detail 1-3" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">목업 적용/활용: 제품 컷(스튜디오)과 옥외 포스터 목업까지 확장해, 온라인 상세/광고 소재에서 바로 쓸 수 있는 브랜딩 일관성을 확인했습니다.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-        <section class="ps-group" aria-label="Photoshop set 2">
-          <img class="ps-main" src="./poto/2.png" alt="Photoshop main 2" loading="lazy" decoding="async">
-          <div class="ps-sub">
-            <img src="./poto/2_1.png" alt="Photoshop detail 2-1" loading="lazy" decoding="async">
-            <img src="./poto/2_2.png" alt="Photoshop detail 2-2" loading="lazy" decoding="async">
-            <img src="./poto/2_3.png" alt="Photoshop detail 2-3" loading="lazy" decoding="async">
+        <section class="ps_group" aria-label="Photoshop set 2">
+          <div class="ps_main ps_flip" tabindex="0" aria-label="로고 설명 카드 2">
+            <div class="ps_inner">
+              <div class="ps_face ps_front">
+                <img src="./poto/2.png" alt="Photoshop main 2" loading="lazy" decoding="async">
+              </div>
+              <div class="ps_face ps_back">
+                <p class="ps_text">정오의 햇살과 한 방울(드롭)을 결합해, NOON DROP의 가벼운 에너지와 브랜드 이미지를 직관적으로 담은 로고입니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ps_sub">
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 2-1">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/2_1.png" alt="Photoshop detail 2-1" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">브랜드 아이덴티티: 'NOON DROP'을 한낮의 한 방울(드롭)로 해석해, 드롭 심볼과 라이트(햇살) 모티프를 중심으로 깔끔하게 구성했습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 2-2">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/2_2.png" alt="Photoshop detail 2-2" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">패키지/라벨 시스템: 병 형태에 맞춘 미니멀 라벨로 통일하고, 원두/블렌드 차이는 액상 컬러가 자연스럽게 구분되도록 라벨 톤은 절제했습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 2-3">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/2_3.png" alt="Photoshop detail 2-3" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">확장 목업 적용: 제품 컷 → 쇼핑백(굿즈) → 옥외 포스터까지 동일 로고/톤으로 전개해, 온라인·오프라인 어디서든 브랜딩 일관성이 유지되게 했습니다.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-        <section class="ps-group" aria-label="Photoshop set 3">
-          <img class="ps-main" src="./poto/3.png" alt="Photoshop main 3" loading="lazy" decoding="async">
-          <div class="ps-sub">
-            <img src="./poto/3_1.png" alt="Photoshop detail 3-1" loading="lazy" decoding="async">
-            <img src="./poto/3_2.png" alt="Photoshop detail 3-2" loading="lazy" decoding="async">
-            <img src="./poto/3_3.png" alt="Photoshop detail 3-3" loading="lazy" decoding="async">
+        <section class="ps_group" aria-label="Photoshop set 3">
+          <div class="ps_main ps_flip" tabindex="0" aria-label="로고 설명 카드 3">
+            <div class="ps_inner">
+              <div class="ps_face ps_front">
+                <img src="./poto/3.png" alt="Photoshop main 3" loading="lazy" decoding="async">
+              </div>
+              <div class="ps_face ps_back">
+                <p class="ps_text">달달한 맛연구소의 '실험실에서 만드는 디저트' 컨셉을 비커·설탕·스파클로 표현한 원형 배지 로고입니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ps_sub">
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 3-1">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/3_1.png" alt="Photoshop detail 3-1" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">브랜드/콘셉트 설정: '달맛연구소(SWEET LAB)'를 달콤함을 실험하는 디저트 랩으로 정의하고, 배지형 로고로 신뢰감과 친근함을 같이 잡았습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 3-2">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/3_2.png" alt="Photoshop detail 3-2" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">패키지 라인업 디자인: 말차·유자·흑임자 3종을 컬러 그라데이션 + 원재료 포인트로 구분해, 진열 시 한눈에 맛이 구분되도록 구성했습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 3-3">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/3_3.png" alt="Photoshop detail 3-3" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">적용 목업 확장: 테이크아웃 박스/단상자/입간판까지 동일 톤으로 전개해, 오프라인에서도 제품군 통일감과 가독성이 유지되게 했습니다.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-        <section class="ps-group" aria-label="Photoshop set 4">
-          <img class="ps-main" src="./poto/4.png" alt="Photoshop main 4" loading="lazy" decoding="async">
-          <div class="ps-sub">
-            <img src="./poto/4_1.png" alt="Photoshop detail 4-1" loading="lazy" decoding="async">
-            <img src="./poto/4_2.png" alt="Photoshop detail 4-2" loading="lazy" decoding="async">
-            <img src="./poto/4_3.png" alt="Photoshop detail 4-3" loading="lazy" decoding="async">
+        <section class="ps_group" aria-label="Photoshop set 4">
+          <div class="ps_main ps_flip" tabindex="0" aria-label="로고 설명 카드 4">
+            <div class="ps_inner">
+              <div class="ps_face ps_front">
+                <img src="./poto/4.png" alt="Photoshop main 4" loading="lazy" decoding="async">
+              </div>
+              <div class="ps_face ps_back">
+                <p class="ps_text">손글씨 감성의 '하루향기' 워드마크에 잎사귀 라인을 더해, 자연스럽고 편안한 향(라이프스타일) 브랜드 이미지를 표현했습니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="ps_sub">
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 4-1">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/4_1.png" alt="Photoshop detail 4-1" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">브랜드 톤 설정: '하루향기'를 잔잔하고 따뜻한 데일리 향으로 정의하고, 손글씨 로고+파스텔 그라데이션으로 감성을 잡았습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 4-2">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/4_2.png" alt="Photoshop detail 4-2" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">패키지 구성: 캔들 단품/기프트 세트를 미니멀 박스 구조로 설계해 선물용 완성도와 언박싱 경험(종이 포장/구성품)을 강화했습니다.</p>
+                </div>
+              </div>
+            </div>
+            <div class="ps_main ps_flip ps_flip_sub" tabindex="0" aria-label="설명 카드 4-3">
+              <div class="ps_inner">
+                <div class="ps_face ps_front">
+                  <img src="./poto/4_3.png" alt="Photoshop detail 4-3" loading="lazy" decoding="async">
+                </div>
+                <div class="ps_face ps_back">
+                  <p class="ps_text">확장 적용: 제품 패키지에서 옥외 포스터까지 동일한 컬러·타이포 톤을 유지해, 온라인·오프라인에서 브랜딩 일관성이 이어지도록 전개했습니다.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>

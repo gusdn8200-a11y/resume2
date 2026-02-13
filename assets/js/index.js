@@ -16,6 +16,7 @@ const BUBBLE_ALL_HOLD_MS = 1800;
 const BUBBLE_REMOVE_MS = 560;
 const BUBBLE_GROUP_GAP_MS = 360;
 const BUBBLE_START_DELAY_MS = 620;
+const MOBILE_BUBBLE_SLOW_FACTOR = 1.35;
 
 const copyState = {
   stage: 0,
@@ -39,6 +40,9 @@ const isTouchDevice = () => (
   window.matchMedia('(hover: none) and (pointer: coarse)').matches
 );
 const isMobileBubbleMode = () => window.matchMedia('(max-width: 700px)').matches;
+const getBubbleDelay = (delayMs) => (
+  isMobileBubbleMode() ? Math.round(delayMs * MOBILE_BUBBLE_SLOW_FACTOR) : delayMs
+);
 
 const clearCopyTimers = () => {
   if (copyState.removeTimers.length) {
@@ -85,7 +89,7 @@ const startBubbleLeave = ($bubble) => {
   $bubble.removeClass('is_visible').addClass('is_leaving').attr('aria-hidden', 'true');
   queueBubbleTimer(() => {
     $bubble.remove();
-  }, BUBBLE_REMOVE_MS);
+  }, getBubbleDelay(BUBBLE_REMOVE_MS));
 };
 
 const appendBubbleMessage = () => {
@@ -124,7 +128,7 @@ const runBubbleSequence = () => {
     appendBubbleMessage();
     shownCount += 1;
     if (shownCount < copyTexts.length) {
-      queueBubbleTimer(spawnNext, BUBBLE_ADD_MS);
+      queueBubbleTimer(spawnNext, getBubbleDelay(BUBBLE_ADD_MS));
       return;
     }
 
@@ -137,8 +141,8 @@ const runBubbleSequence = () => {
       queueBubbleTimer(() => {
         resetBubbleSequence();
         runBubbleSequence();
-      }, BUBBLE_REMOVE_MS + BUBBLE_GROUP_GAP_MS);
-    }, BUBBLE_ALL_HOLD_MS);
+      }, getBubbleDelay(BUBBLE_REMOVE_MS + BUBBLE_GROUP_GAP_MS));
+    }, getBubbleDelay(BUBBLE_ALL_HOLD_MS));
   };
 
   spawnNext();

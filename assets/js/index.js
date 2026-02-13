@@ -368,6 +368,13 @@ const togglePsPanel = (forceOpen) => {
   setDrawerState($panel, $backdrop, $toggle, willOpen);
 };
 
+const togglePsFlipCard = (target, forceState) => {
+  const $card = $(target);
+  if ($card.length === 0) return;
+  const nextState = typeof forceState === 'boolean' ? forceState : !$card.hasClass('is_flipped');
+  $card.toggleClass('is_flipped', nextState).attr('aria-pressed', String(nextState));
+};
+
 const THUMB_SPEED = 90;
 const MIN_THUMB_DURATION = 12;
 const MAX_THUMB_DURATION = 36;
@@ -578,6 +585,16 @@ $(function () {
   $('#image_modal').on('click', '.image_close', closeImageModal);
   $('#ps_toggle').on('click', () => togglePsPanel());
   $('#ps_panel').on('click', '.drawer_close', () => togglePsPanel(false));
+  $('#ps_panel .ps_main.ps_flip').attr('role', 'button').attr('aria-pressed', 'false');
+  $('#ps_panel').on('click', '.ps_main.ps_flip', function (event) {
+    event.preventDefault();
+    togglePsFlipCard(this);
+  });
+  $('#ps_panel').on('keydown', '.ps_main.ps_flip', function (event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    togglePsFlipCard(this);
+  });
 
   $(window).on('load resize orientationchange', () => {
     updateThumbLoop();

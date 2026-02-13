@@ -793,6 +793,9 @@ body{
 .ps_main.ps_flip:focus-within .ps_inner{
   transform: rotateY(180deg);
 }
+.ps_main.ps_flip.is_flipped .ps_inner{
+  transform: rotateY(180deg);
+}
 .ps_main.ps_flip:focus-visible{
   box-shadow: 0 0 0 2px rgba(255,176,32,.75), 0 12px 24px rgba(0,0,0,.12);
 }

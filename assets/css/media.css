@@ -304,10 +304,10 @@
   }
   .ps_main,
   .ps_sub img{
-    height: auto;
+    height: clamp(200px, 52vw, 320px);
   }
   .ps_main.ps_flip.ps_flip_sub{
-    height: auto;
+    height: clamp(200px, 52vw, 320px);
   }
   .image_card{
     width: 96vw;

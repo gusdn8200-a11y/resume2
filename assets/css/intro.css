@@ -29,6 +29,45 @@
   pointer-events: none;
 }
 
+.intro-back-btn{
+  position: fixed;
+  top: max(4px, env(safe-area-inset-top));
+  left: max(4px, env(safe-area-inset-left));
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(33,46,66,.38);
+  background: rgba(255,255,255,.94);
+  color: #23334a;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(14,24,38,.16);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), background-color .2s var(--ease), border-color .2s var(--ease);
+}
+.intro-back-btn::before{
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateX(2px) rotate(45deg);
+}
+.intro-back-btn:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.96);
+  border-color: rgba(33,46,66,.62);
+  box-shadow: 0 6px 12px rgba(14,24,38,.2);
+}
+.intro-back-btn:active{
+  transform: translateY(0);
+}
+.intro-back-btn:focus-visible{
+  outline: 3px solid rgba(255,176,32,.9);
+  outline-offset: 3px;
+}
+
 .intro-inner{
   position: relative;
   z-index: 1;
@@ -176,4 +215,15 @@
 
 body.intro-lock .page{
   visibility: hidden;
+}
+body.intro-lock .intro-back-btn{
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 700px){
+  .intro-back-btn{
+    width: 46px;
+    height: 46px;
+  }
 }

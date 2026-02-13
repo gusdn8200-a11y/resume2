@@ -556,10 +556,9 @@ body{
   display:block;
 }
 .image-close{
-  position: sticky;
+  position: absolute;
   top: 14px;
-  margin-left: auto;
-  margin-right: 14px;
+  right: 14px;
   width: 36px;
   height: 36px;
   border-radius: 12px;

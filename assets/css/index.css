@@ -107,66 +107,140 @@ body{
   margin: 0 auto;
   position: relative;
   height: 100%;
-  display:grid;
-  place-items:center;
-  padding: 40px 20px 0;
+  min-height: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 12px 28px 0;
   flex: 1 1 auto;
 }
 
-.copy{
+.hero-row{
   width: 100%;
-  max-width: none;
+  max-width: 1520px;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
-  gap: 14px;
-  position:relative;
-  margin-top: 10px;
+  justify-content:center;
+  gap: clamp(16px, 4vw, 64px);
 }
 
-.copy-line{
-  --copy-slot: 0%;
-  --copy-drop: 0px;
-  --copy-scale: 1;
-  --copy-blur: 0px;
+.speech-stream{
+  width: clamp(250px, 28vw, 420px);
+  height: clamp(230px, 31vh, 330px);
+  position: relative;
+  transform: translateY(-26px);
+}
+
+.speech-bubble-item{
+  --bubble-enter-x: 0px;
+  width: clamp(175px, 14.6vw, 240px);
+  aspect-ratio: 1 / 1;
+  position: absolute;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  opacity: 0;
+  will-change: opacity, transform;
+  transform: translate3d(var(--bubble-enter-x), 14px, 0) scale(.97);
+  transition: opacity .52s cubic-bezier(.2,.8,.2,1), transform .62s cubic-bezier(.2,.8,.2,1);
+}
+.speech-bubble-item.is-left{
+  --bubble-enter-x: -18px;
+}
+.speech-bubble-item.is-right{
+  --bubble-enter-x: 18px;
+}
+.speech-bubble-item.is-visible{
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+.speech-bubble-item.is-leaving{
+  opacity: 0;
+  transform: translate3d(calc(var(--bubble-enter-x) * -0.25), -18px, 0) scale(.94);
+}
+.speech-bubble-img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(17,26,42,.18));
+}
+.speech-bubble-item.slot-0{
+  top: 0;
+  left: 0;
+}
+.speech-bubble-item.slot-1{
+  top: 22%;
+  right: 2%;
+}
+.speech-bubble-item.slot-2{
+  top: 44%;
+  left: 2%;
+}
+.speech-bubble-item.slot-3{
+  top: 66%;
+  right: 0;
+}
+
+.bubble-copy-line{
   font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-weight: 600;
-  letter-spacing: 0.05em;
-  line-height: 1.4;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
   margin:0;
-  width: max-content;
-  max-width: calc(100% - 40px);
+  width: 56%;
+  max-width: 56%;
+  height: 42%;
+  max-height: 42%;
   color: var(--fg);
-  font-size: clamp(24px, 3vw, 44px);
+  font-size: clamp(12px, .86vw, 15px);
   text-align:center;
-  position: relative;
-  left: var(--copy-slot);
-  will-change: transform, opacity, filter;
-  text-shadow: 0 2px 6px rgba(34,45,64,.25);
-  filter: blur(var(--copy-blur));
-  transform: translateY(var(--copy-drop)) scale(var(--copy-scale));
-  transition: opacity .34s cubic-bezier(.23,1,.32,1), transform .42s cubic-bezier(.23,1,.32,1), filter .42s cubic-bezier(.23,1,.32,1);
+  line-height: 1.42;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 1px 3px rgba(34,45,64,.08);
   padding: 0;
 }
-.copy-line.is-left{
-  --copy-slot: 0%;
+.speech-bubble-item.slot-1 .bubble-copy-line,
+.speech-bubble-item.slot-2 .bubble-copy-line{
+  top: 49%;
 }
-.copy-line.is-center{
-  --copy-slot: 30%;
+
+.copy{
+  width: clamp(420px, 44vw, 740px);
+  max-width: 56vw;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
 }
-.copy-line.is-right{
-  --copy-slot: 60%;
-}
-.copy-line.is-switch{
-  opacity: 0;
-  --copy-drop: 10px;
-  --copy-scale: 1.02;
-  --copy-blur: 14px;
+
+.hero-main-copy{
+  margin: 0;
+  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  font-size: clamp(24px, 2.35vw, 40px);
+  color: var(--fg);
+  text-align: right;
+  text-shadow: 0 2px 6px rgba(34,45,64,.18);
 }
 .copy-key{
-  color: #3f7cc4;
-  font-weight: 600;
+  color: #cc6a2c;
+  font-weight: 700;
+  text-shadow: 0 1px 1px rgba(255,255,255,.18);
+}
+.copy-arrow{
+  display: inline-block;
+  transform: translateY(2px);
+  font-size: 1.08em;
 }
 
 .scroll-gauge{

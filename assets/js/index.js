@@ -1,17 +1,28 @@
 const DEFAULT_VIDEO = './assets/img/v_1.mp4';
 
 const copyTexts = [
-  '어색한 <span class="copy-key">1px</span>을 범인으로 잡습니다.<br>범인은 항상 <span class="copy-key">디테일</span>에 있습니다.',
+  '안녕하세요,<br><span class="copy-key">프론트엔드 박현우</span>입니다.',
+  '컴포넌트를 구조화해서<br><span class="copy-key">유지보수</span>하기 쉽게 만듭니다.',
+  '인터랙션은 과하지 않게,<br>필요한 만큼만 <span class="copy-key">정확히</span> 넣습니다.',
+  '아래 프로젝트에서 리뉴얼 작업을<br>확인해 주세요 <span class="copy-arrow">↓</span>',
 ];
+const bubbleSources = {
+  left: './assets/img/lp.png',
+  right: './assets/img/rp.png',
+};
+const BUBBLE_SLOTS = ['slot-0', 'slot-1', 'slot-2', 'slot-3'];
+const BUBBLE_ADD_MS = 980;
+const BUBBLE_ALL_HOLD_MS = 1800;
+const BUBBLE_REMOVE_MS = 560;
+const BUBBLE_GROUP_GAP_MS = 360;
+const BUBBLE_START_DELAY_MS = 620;
 
 const copyState = {
   stage: 0,
-  intent: 0,
-  isTransitioning: false,
-  $line: null,
-  $gaugeFill: null,
-  swapTimer: null,
-  endTimer: null,
+  slotIndex: 0,
+  $stream: null,
+  hasStarted: false,
+  removeTimers: [],
 };
 const touchSlideState = {
   index: 0,
@@ -21,119 +32,154 @@ const touchSlideState = {
 const PREVIEW_HOVER_DELAY_MS = 160;
 let previewTimer = 0;
 
-const COPY_SCROLL_THRESHOLD = 120;
-const COPY_TOUCH_THRESHOLD = 90;
-const COPY_SWAP_MS = 220;
-const COPY_TRANSITION_MS = 560;
-
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const isTouchDevice = () => (
   'ontouchstart' in window ||
   navigator.maxTouchPoints > 0 ||
   window.matchMedia('(hover: none) and (pointer: coarse)').matches
 );
-const hasInteractiveLayerOpen = () => (
-  $('#imageModal').hasClass('is-open') ||
-  $('#psPanel').hasClass('is-open') ||
-  $('#videoModal').hasClass('is-open') ||
-  $('#introOverlay').hasClass('is-active')
-);
 
-const resolveCopyProgress = (stageValue) => {
-  const stageSpan = copyTexts.length - 1;
-  if (stageSpan <= 0) return 0;
-  return clamp(stageValue / stageSpan, 0, 1);
-};
-
-const updateCopyGauge = (progressValue) => {
-  const progress = clamp(progressValue, 0, 1);
-  const percent = Math.round(progress * 100);
-  if (copyState.$gaugeFill && copyState.$gaugeFill.length) {
-    copyState.$gaugeFill.css('width', `${percent}%`);
+const clearCopyTimers = () => {
+  if (copyState.removeTimers.length) {
+    copyState.removeTimers.forEach((timerId) => window.clearTimeout(timerId));
+    copyState.removeTimers = [];
   }
 };
 
-const updateCopyPosition = () => {
-  if (!copyState.$line || copyState.$line.length === 0) return;
-  const lastStage = copyTexts.length - 1;
-  let positionClass = 'is-center';
-  if (copyState.stage <= 0) {
-    positionClass = 'is-left';
-  } else if (copyState.stage >= lastStage) {
-    positionClass = 'is-right';
+const resolveBubbleSide = (stageValue) => (stageValue % 2 === 0 ? 'left' : 'right');
+const isIntroOverlayActive = () => $('#introOverlay').hasClass('is-active');
+const hasActiveCopyTimers = () => copyState.removeTimers.length > 0;
+
+const queueBubbleTimer = (callback, delayMs) => {
+  const timerId = window.setTimeout(() => {
+    copyState.removeTimers = copyState.removeTimers.filter((id) => id !== timerId);
+    callback();
+  }, delayMs);
+  copyState.removeTimers.push(timerId);
+  return timerId;
+};
+
+const fitBubbleText = (element) => {
+  if (!element) return;
+  element.style.fontSize = '';
+  let size = Number.parseFloat(window.getComputedStyle(element).fontSize) || 12;
+  const minSize = 10;
+  let attempts = 0;
+  while (
+    attempts < 24 &&
+    size > minSize &&
+    (element.scrollHeight > element.clientHeight + 1 || element.scrollWidth > element.clientWidth + 1)
+  ) {
+    size -= 0.5;
+    element.style.fontSize = `${size}px`;
+    attempts += 1;
   }
-  copyState.$line.removeClass('is-left is-center is-right').addClass(positionClass);
+};
+
+const startBubbleLeave = ($bubble) => {
+  if (!$bubble || $bubble.length === 0) return;
+  if ($bubble.hasClass('is-leaving')) return;
+  if (!$bubble.parent().length) return;
+
+  $bubble.removeClass('is-visible').addClass('is-leaving').attr('aria-hidden', 'true');
+  queueBubbleTimer(() => {
+    $bubble.remove();
+  }, BUBBLE_REMOVE_MS);
+};
+
+const appendBubbleMessage = () => {
+  if (!copyState.$stream || copyTexts.length === 0) return;
+
+  const stage = copyState.stage % copyTexts.length;
+  const side = resolveBubbleSide(stage);
+  const slot = BUBBLE_SLOTS[copyState.slotIndex % BUBBLE_SLOTS.length];
+  const $bubble = $(`
+    <article class="speech-bubble-item ${slot} is-${side}" aria-hidden="true">
+      <img class="speech-bubble-img" src="${bubbleSources[side]}" alt="" aria-hidden="true">
+      <p class="bubble-copy-line"></p>
+    </article>
+  `);
+  $bubble.find('.bubble-copy-line').html(copyTexts[stage]);
+  copyState.$stream.append($bubble);
+  fitBubbleText($bubble.find('.bubble-copy-line')[0]);
+
+  requestAnimationFrame(() => {
+    $bubble.addClass('is-visible').attr('aria-hidden', 'false');
+  });
+
+  copyState.stage = (stage + 1) % copyTexts.length;
+  copyState.slotIndex = (copyState.slotIndex + 1) % BUBBLE_SLOTS.length;
+  return $bubble;
+};
+
+const runBubbleSequence = () => {
+  if (!copyState.$stream || copyTexts.length === 0) return;
+  let shownCount = 0;
+
+  const spawnNext = () => {
+    appendBubbleMessage();
+    shownCount += 1;
+    if (shownCount < copyTexts.length) {
+      queueBubbleTimer(spawnNext, BUBBLE_ADD_MS);
+      return;
+    }
+
+    queueBubbleTimer(() => {
+      const $activeBubbles = copyState.$stream.children('.speech-bubble-item').not('.is-leaving');
+      $activeBubbles.each((_, item) => {
+        startBubbleLeave($(item));
+      });
+
+      queueBubbleTimer(() => {
+        resetBubbleSequence();
+        runBubbleSequence();
+      }, BUBBLE_REMOVE_MS + BUBBLE_GROUP_GAP_MS);
+    }, BUBBLE_ALL_HOLD_MS);
+  };
+
+  spawnNext();
+};
+
+const resetBubbleSequence = () => {
+  if (!copyState.$stream) return;
+  copyState.stage = 0;
+  copyState.slotIndex = 0;
+  copyState.$stream.empty();
 };
 
 const setupCopyStage = () => {
-  const $line = $('#copyLine');
-  if ($line.length === 0) return;
-  copyState.$line = $line;
-  copyState.$gaugeFill = $('#scrollGaugeFill');
-  copyState.$line.html(copyTexts[0]);
-  updateCopyPosition();
-  updateCopyGauge(resolveCopyProgress(copyState.stage));
+  const $stream = $('#speechStream');
+  if ($stream.length === 0) return;
+  copyState.$stream = $stream;
+  clearCopyTimers();
+  resetBubbleSequence();
+  if ($('#introOverlay').length === 0 || !isIntroOverlayActive()) {
+    copyState.hasStarted = true;
+    startCopyStage(BUBBLE_START_DELAY_MS);
+  }
 };
 
-const changeCopyStage = (nextStage) => {
-  if (!copyState.$line) return;
-  const stage = clamp(nextStage, 0, copyTexts.length - 1);
-  if (stage === copyState.stage || copyState.isTransitioning) return;
-
-  copyState.isTransitioning = true;
-  copyState.intent = 0;
-  $('body').addClass('copy-transition');
-  copyState.$line.addClass('is-switch');
-
-  clearTimeout(copyState.swapTimer);
-  clearTimeout(copyState.endTimer);
-
-  copyState.swapTimer = window.setTimeout(() => {
-    copyState.stage = stage;
-    copyState.$line.html(copyTexts[stage]);
-    updateCopyPosition();
-    updateCopyGauge(resolveCopyProgress(copyState.stage));
-    requestAnimationFrame(() => {
-      if (copyState.$line) copyState.$line.removeClass('is-switch');
-    });
-  }, COPY_SWAP_MS);
-
-  copyState.endTimer = window.setTimeout(() => {
-    copyState.isTransitioning = false;
-    $('body').removeClass('copy-transition');
-  }, COPY_TRANSITION_MS);
+const stopCopyStage = () => {
+  clearCopyTimers();
+  resetBubbleSequence();
 };
 
-const queueCopyByDelta = (delta, threshold) => {
-  if (!copyState.$line || copyState.isTransitioning) return;
-  if (!Number.isFinite(delta) || Math.abs(delta) < 1) return;
+const resumeCopyStage = () => {
+  if (!copyState.$stream) return;
+  if (!copyState.hasStarted) return;
+  if (isIntroOverlayActive()) return;
+  if (hasActiveCopyTimers()) return;
+  startCopyStage(180);
+};
 
-  const lastStage = copyTexts.length - 1;
-  if (lastStage <= 0) return;
-
-  copyState.intent = clamp(copyState.intent + delta, -threshold, threshold);
-  const pendingStage = clamp(copyState.stage + (copyState.intent / threshold), 0, lastStage);
-  const pendingProgress = resolveCopyProgress(pendingStage);
-  updateCopyGauge(pendingProgress);
-
-  if (copyState.intent >= threshold) {
-    copyState.intent = 0;
-    if (copyState.stage < lastStage) {
-      changeCopyStage(copyState.stage + 1);
-    } else {
-      updateCopyGauge(1);
-    }
-    return;
-  }
-
-  if (copyState.intent <= -threshold) {
-    copyState.intent = 0;
-    if (copyState.stage > 0) {
-      changeCopyStage(copyState.stage - 1);
-    } else {
-      updateCopyGauge(0);
-    }
-  }
+const startCopyStage = (delayMs = BUBBLE_START_DELAY_MS) => {
+  if (!copyState.$stream) return;
+  clearCopyTimers();
+  resetBubbleSequence();
+  queueBubbleTimer(() => {
+    if (isIntroOverlayActive()) return;
+    runBubbleSequence();
+  }, Math.max(0, delayMs));
 };
 
 const openPreview = (src) => {
@@ -425,47 +471,7 @@ const holdThumbLoopAfterArrow = () => {
   }, THUMB_ARROW_HOLD_MS);
 };
 
-let lastTouchY = 0;
-let lastTouchX = 0;
 let touchScrollSyncFrame = 0;
-
-const handleWheel = (event) => {
-  if (!copyState.$line) return;
-  if (hasInteractiveLayerOpen()) return;
-  const sourceEvent = event.originalEvent || event;
-  const delta = sourceEvent.deltaY;
-  if (!Number.isFinite(delta) || Math.abs(delta) < 1) return;
-
-  event.preventDefault();
-  queueCopyByDelta(delta, COPY_SCROLL_THRESHOLD);
-};
-
-const handleTouchStart = (event) => {
-  const sourceEvent = event.originalEvent || event;
-  const touches = sourceEvent.touches;
-  if (!touches || touches.length === 0) return;
-  lastTouchY = touches[0].clientY;
-  lastTouchX = touches[0].clientX;
-  copyState.intent = 0;
-};
-
-const handleTouchMove = (event) => {
-  if (!copyState.$line) return;
-  if (hasInteractiveLayerOpen()) return;
-  const sourceEvent = event.originalEvent || event;
-  const touches = sourceEvent.touches;
-  if (!touches || touches.length === 0) return;
-  const currentY = touches[0].clientY;
-  const currentX = touches[0].clientX;
-  const deltaY = lastTouchY - currentY;
-  const deltaX = lastTouchX - currentX;
-  lastTouchY = currentY;
-  lastTouchX = currentX;
-  if (Math.abs(deltaX) > Math.abs(deltaY)) return;
-  if (Math.abs(deltaY) < 1) return;
-  event.preventDefault();
-  queueCopyByDelta(deltaY, COPY_TOUCH_THRESHOLD);
-};
 
 $(function () {
   const touchDevice = isTouchDevice();
@@ -474,6 +480,14 @@ $(function () {
   }
 
   setupCopyStage();
+  $(document).on('intro:enter', () => {
+    copyState.hasStarted = true;
+    startCopyStage(BUBBLE_START_DELAY_MS);
+  });
+  $(document).on('intro:opened', () => {
+    copyState.hasStarted = false;
+    stopCopyStage();
+  });
 
   const $thumbTrack = $('#thumbTrack');
   if (!touchDevice && $thumbTrack.length && !$thumbTrack.data('looped')) {
@@ -557,13 +571,9 @@ $(function () {
   $('#psToggle').on('click', () => togglePsPanel());
   $('#psPanel').on('click', '.drawer-close', () => togglePsPanel(false));
 
-  if (!touchDevice) {
-    window.addEventListener('wheel', handleWheel, { passive: false });
-  }
-  window.addEventListener('touchstart', handleTouchStart, { passive: true });
-  window.addEventListener('touchmove', handleTouchMove, { passive: false });
   $(window).on('load resize orientationchange', () => {
     updateThumbLoop();
+    $('#speechStream .bubble-copy-line').each((_, item) => fitBubbleText(item));
     if (touchDevice) {
       touchSlideState.total = $('#thumbTrack').children('.thumb-item').length;
       syncTouchSlideState();
@@ -575,10 +585,14 @@ $(function () {
       active.blur();
     }
     resumeThumbLoop();
+    resumeCopyStage();
   });
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
       resumeThumbLoop();
+      resumeCopyStage();
+    } else {
+      stopCopyStage();
     }
   });
   $(window).on('keydown', (event) => {

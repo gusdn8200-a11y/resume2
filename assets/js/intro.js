@@ -18,6 +18,8 @@ $(function () {
     requestAnimationFrame(function () {
       $overlay.addClass('is-active');
     });
+
+    $(document).trigger('intro:opened');
   }
 
   function closeIntro() {
@@ -36,6 +38,7 @@ $(function () {
 
   $enterBtn.on('click', function (event) {
     event.preventDefault();
+    $(document).trigger('intro:enter');
     closeIntro();
   });
 
@@ -49,6 +52,7 @@ $(function () {
   $(document).on('keydown.intro', function (event) {
     if (event.key === 'Enter' && $overlay.hasClass('is-active')) {
       event.preventDefault();
+      $(document).trigger('intro:enter');
       closeIntro();
     }
   });

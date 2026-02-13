@@ -3,8 +3,7 @@
 }
 
 :root{
-  --font-sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-serif: "Noto Serif KR", "Apple SD Gothic Neo", "Malgun Gothic", serif;
+  --font-sans: "Noto Sans KR", sans-serif;
 }
 
 body {
@@ -20,7 +19,7 @@ h3,
 h4,
 .menu-item,
 .lineup-item{
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
 }
 
 .menu-panel{

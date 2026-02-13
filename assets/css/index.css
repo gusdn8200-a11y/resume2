@@ -4,6 +4,7 @@
   --surface:#4b4742;
   --fg:#2a3850;
   --muted:#4a5972;
+  --font-base: "Pretendard Variable", "Pretendard", sans-serif;
   --line: rgba(40,56,80,.16);
   --accent:#f2a65e;
   --secondary:#e98aa1;
@@ -19,7 +20,7 @@
 html,body{height:100%}
 body{
   margin:0;
-  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  font-family: var(--font-base);
   background:
     radial-gradient(1200px 600px at 50% 10%, rgba(255,255,255,.7), transparent 55%),
     linear-gradient(180deg, #d7e9fb 0%, #cfe5fb 55%, #c2dbf6 100%);
@@ -185,7 +186,6 @@ body{
 }
 
 .bubble_text{
-  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-weight: 600;
   letter-spacing: 0.03em;
   line-height: 1.5;
@@ -223,7 +223,6 @@ body{
 
 .hero_text{
   margin: 0;
-  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1.35;
@@ -823,7 +822,6 @@ body{
 }
 .ps_text{
   margin: 0;
-  font-family: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
   font-size: clamp(12px, .9vw, 14px);
   line-height: 1.55;
   text-align: center;

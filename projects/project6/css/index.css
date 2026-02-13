@@ -27,7 +27,7 @@ html {
 
 body {
   margin: 0;
-  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   color: var(--ink);
   background: var(--bg);
   line-height: 1.55;
@@ -249,7 +249,7 @@ section {
 
 .section-head h2 {
   margin: 0.55rem 0 0;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: clamp(2rem, 4.3vw, 3rem);
   line-height: 1.02;
   font-weight: 600;
@@ -393,7 +393,7 @@ section {
 .story-card h3 {
   margin: 0;
   font-size: 1.15rem;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .story-card p {
@@ -518,7 +518,7 @@ section {
 .product-back h3 {
   margin: 0;
   font-size: 1.06rem;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .product-meta {
@@ -653,7 +653,7 @@ section {
 
 .lab-head h2 {
   margin: 0.55rem 0 0;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: clamp(1.8rem, 3.9vw, 2.5rem);
   line-height: 1.1;
 }
@@ -847,7 +847,7 @@ section {
 
 .footer p {
   margin: 0;
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Noto Sans KR", sans-serif;
   letter-spacing: 0.1em;
   font-size: 1.1rem;
 }

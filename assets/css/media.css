@@ -6,9 +6,6 @@
   .card h3{font-size:14px; margin-bottom:7px}
   .card p, .card li{font-size:13px; line-height:1.62}
   .card ul{gap:6px}
-  .avatar{width:32px;height:32px;font-size:13px}
-  .meta{margin-top:4px; gap:6px; font-size:12px}
-  .chip{padding:2px 5px}
 }
 
 @media (max-width: 1200px){
@@ -266,14 +263,6 @@
   }
   .thumb_nav{
     display: none;
-  }
-  .scroll_gauge{
-    left: 12px;
-    top: 10px;
-    gap: 6px;
-  }
-  .scroll_track{
-    width: clamp(74px, 26vw, 104px);
   }
   .badge_wrap{
     top: var(--badge_top);

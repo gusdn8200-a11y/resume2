@@ -1,4 +1,5 @@
 const DEFAULT_VIDEO = './assets/img/v_1.mp4';
+const DEFAULT_POSTER = './assets/img/s_1.png';
 
 const copyTexts = [
   '안녕하세요,<br><span class="copy_key">퍼블리셔 박현우</span>입니다.',
@@ -196,10 +197,15 @@ const openPreview = (src) => {
   const preview_video = $preview_video[0];
   if ($video_modal.length === 0 || !preview_video) return;
 
-  const nextSrc = src || DEFAULT_VIDEO;
+  const nextSrc = src?.video || src || DEFAULT_VIDEO;
+  const nextPoster = src?.poster || DEFAULT_POSTER;
+  if ($preview_video.attr('poster') !== nextPoster) {
+    $preview_video.attr('poster', nextPoster);
+  }
   if ($preview_video.attr('src') !== nextSrc) {
     $preview_video.attr('src', nextSrc);
     preview_video.currentTime = 0;
+    preview_video.load();
   }
   $video_modal.addClass('is_open').attr('aria-hidden', 'false');
   preview_video.play().catch(() => {});
@@ -221,16 +227,41 @@ const clearPreviewTimer = () => {
   previewTimer = 0;
 };
 
+const resolveThumbPoster = (target) => {
+  if (!target) return DEFAULT_POSTER;
+  return $(target).find('.thumb_img').attr('src') || DEFAULT_POSTER;
+};
+
+const warmPreview = (videoSrc, posterSrc) => {
+  const $preview_video = $('#preview_video');
+  const preview_video = $preview_video[0];
+  if (!preview_video) return;
+
+  const nextVideoSrc = videoSrc || DEFAULT_VIDEO;
+  const nextPosterSrc = posterSrc || DEFAULT_POSTER;
+
+  if ($preview_video.attr('poster') !== nextPosterSrc) {
+    $preview_video.attr('poster', nextPosterSrc);
+  }
+  if ($preview_video.attr('src') !== nextVideoSrc) {
+    $preview_video.attr('src', nextVideoSrc);
+    preview_video.currentTime = 0;
+    preview_video.load();
+  }
+};
+
 const handleThumbEnter = (target, immediate = false) => {
   if (!target) return;
   const src = $(target).attr('data-video') || DEFAULT_VIDEO;
+  const poster = resolveThumbPoster(target);
   clearPreviewTimer();
+  warmPreview(src, poster);
   if (immediate) {
-    openPreview(src);
+    openPreview({ video: src, poster });
     return;
   }
   previewTimer = window.setTimeout(() => {
-    openPreview(src);
+    openPreview({ video: src, poster });
     previewTimer = 0;
   }, PREVIEW_HOVER_DELAY_MS);
 };
@@ -305,7 +336,7 @@ const handleVideoError = () => {
   if (!preview_video) return;
   const current = $preview_video.attr('src');
   if (current && current !== DEFAULT_VIDEO) {
-    openPreview(DEFAULT_VIDEO);
+    openPreview({ video: DEFAULT_VIDEO, poster: DEFAULT_POSTER });
   }
 };
 

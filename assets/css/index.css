@@ -1,6 +1,6 @@
 @charset "utf-8";
 :root{
-  --bg:#d7e9fb;
+  --bg:#8df0a4;
   --surface:#4b4742;
   --fg:#2a3850;
   --muted:#4a5972;
@@ -22,8 +22,10 @@ body{
   margin:0;
   font-family: var(--font-base);
   background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E"),
     radial-gradient(1200px 600px at 50% 10%, rgba(255,255,255,.7), transparent 55%),
     linear-gradient(180deg, #d7e9fb 0%, #cfe5fb 55%, #c2dbf6 100%);
+  background-size: 180px 180px, 100% 100%, 100% 100%;
   color:var(--fg);
   overflow:hidden;
 }

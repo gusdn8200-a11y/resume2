@@ -2,28 +2,29 @@ const DEFAULT_VIDEO = './assets/img/v_1.mp4';
 const DEFAULT_POSTER = './assets/img/s_1.png';
 
 const copyTexts = [
-  '안녕하세요,<br><span class="copy_key">퍼블리셔 박현우</span>입니다.',
-  '컴포넌트를 구조화해서<br><span class="copy_key">유지보수</span>하기 쉽게 만듭니다.',
-  '인터랙션은 과하지 않게,<br>필요한 만큼만 <span class="copy_key">정확히</span> 넣습니다.',
-  '아래 프로젝트에서 리뉴얼 작업을<br>확인해 주세요 <span class="copy_arrow">↓</span>',
+  '<span class="copy_key">퍼블리셔 박현우</span>입니다.',
+  '<span class="copy_key">구조화</span>로 유지보수를 단순하게.',
+  '인터랙션은 필요한 만큼만,<br><span class="copy_key">정확하게</span> 구현합니다.',
+  '아래 프로젝트에서<br><span class="copy_key">확인해 보세요</span> <span class="copy_arrow">↓</span>',
 ];
 const bubbleSources = {
   left: './assets/img/lp.png',
   right: './assets/img/rp.png',
 };
 const BUBBLE_SLOTS = ['slot_0', 'slot_1', 'slot_2', 'slot_3'];
-const BUBBLE_ADD_MS = 980;
-const BUBBLE_ALL_HOLD_MS = 1800;
-const BUBBLE_REMOVE_MS = 560;
-const BUBBLE_GROUP_GAP_MS = 360;
+const BUBBLE_DISPLAY_MS = 1000;
+const BUBBLE_REMOVE_MS = 360;
+const BUBBLE_SWITCH_GAP_MS = 120;
 const BUBBLE_START_DELAY_MS = 620;
-const MOBILE_BUBBLE_SLOW_FACTOR = 1.35;
+const MOBILE_BUBBLE_SLOW_FACTOR = 1;
 
 const copyState = {
   stage: 0,
   slotIndex: 0,
   $stream: null,
   hasStarted: false,
+  hasCompletedOnce: false,
+  isRunning: false,
   removeTimers: [],
 };
 const touchSlideState = {
@@ -40,7 +41,7 @@ const isTouchDevice = () => (
   navigator.maxTouchPoints > 0 ||
   window.matchMedia('(hover: none) and (pointer: coarse)').matches
 );
-const isMobileBubbleMode = () => window.matchMedia('(max-width: 700px)').matches;
+const isMobileBubbleMode = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 const getBubbleDelay = (delayMs) => (
   isMobileBubbleMode() ? Math.round(delayMs * MOBILE_BUBBLE_SLOW_FACTOR) : delayMs
 );
@@ -123,27 +124,29 @@ const appendBubbleMessage = () => {
 
 const runBubbleSequence = () => {
   if (!copyState.$stream || copyTexts.length === 0) return;
-  let shownCount = 0;
+  copyState.isRunning = true;
 
   const spawnNext = () => {
-    appendBubbleMessage();
-    shownCount += 1;
-    if (shownCount < copyTexts.length) {
-      queueBubbleTimer(spawnNext, getBubbleDelay(BUBBLE_ADD_MS));
+    if (!copyState.$stream || isIntroOverlayActive()) {
+      copyState.isRunning = false;
       return;
     }
 
-    queueBubbleTimer(() => {
-      const $activeBubbles = copyState.$stream.children('.bubble_item').not('.is_leaving');
-      $activeBubbles.each((_, item) => {
-        startBubbleLeave($(item));
-      });
+    const stage = copyState.stage % copyTexts.length;
+    const isLastMessage = stage === copyTexts.length - 1;
+    const $bubble = appendBubbleMessage();
+    if (!$bubble || $bubble.length === 0) {
+      copyState.isRunning = false;
+      return;
+    }
 
-      queueBubbleTimer(() => {
-        resetBubbleSequence();
-        runBubbleSequence();
-      }, getBubbleDelay(BUBBLE_REMOVE_MS + BUBBLE_GROUP_GAP_MS));
-    }, getBubbleDelay(BUBBLE_ALL_HOLD_MS));
+    if (isLastMessage) {
+      copyState.hasCompletedOnce = true;
+      copyState.isRunning = false;
+      return;
+    }
+
+    queueBubbleTimer(spawnNext, getBubbleDelay(BUBBLE_DISPLAY_MS));
   };
 
   spawnNext();
@@ -170,20 +173,26 @@ const setupCopyStage = () => {
 
 const stopCopyStage = () => {
   clearCopyTimers();
+  copyState.isRunning = false;
+  if (copyState.hasCompletedOnce) return;
   resetBubbleSequence();
 };
 
 const resumeCopyStage = () => {
   if (!copyState.$stream) return;
   if (!copyState.hasStarted) return;
+  if (copyState.hasCompletedOnce) return;
   if (isIntroOverlayActive()) return;
+  if (copyState.isRunning) return;
   if (hasActiveCopyTimers()) return;
   startCopyStage(180);
 };
 
 const startCopyStage = (delayMs = BUBBLE_START_DELAY_MS) => {
   if (!copyState.$stream) return;
+  if (copyState.hasCompletedOnce) return;
   clearCopyTimers();
+  copyState.isRunning = false;
   resetBubbleSequence();
   queueBubbleTimer(() => {
     if (isIntroOverlayActive()) return;
@@ -283,10 +292,10 @@ const normalizeSlideIndex = (value, total) => {
 };
 
 const syncTouchSlideState = () => {
-  if (!document.body.classList.contains('is_touch')) return;
   const $row = $('#thumb_row');
+  const $track = $('#thumb_track');
   const $items = getTouchThumbItems();
-  if ($row.length === 0 || $items.length === 0) return;
+  if ($row.length === 0 || $track.length === 0 || $items.length === 0) return;
 
   let closestIndex = 0;
   let closestDistance = Number.POSITIVE_INFINITY;
@@ -300,8 +309,9 @@ const syncTouchSlideState = () => {
     }
   });
 
-  touchSlideState.index = closestIndex;
-  touchSlideState.total = $items.length;
+  const originalCount = Number($track.data('originalCount')) || $items.length;
+  touchSlideState.index = normalizeSlideIndex(closestIndex, originalCount);
+  touchSlideState.total = originalCount;
   setActiveThumb($items.get(closestIndex));
 };
 
@@ -323,6 +333,41 @@ const moveTouchSlide = (direction) => {
     left: target.offsetLeft,
     behavior: (isForwardLoop || isBackwardLoop) ? 'auto' : 'smooth',
   });
+};
+
+const resolveThumbStepPx = () => {
+  const $items = $('#thumb_track').children('.thumb_item');
+  const first = $items.get(0);
+  const second = $items.get(1);
+  if (!first) return 0;
+  if (!second) return first.getBoundingClientRect().width;
+  return Math.abs(second.offsetLeft - first.offsetLeft);
+};
+
+const nudgeThumbSlide = (direction) => {
+  const step = direction < 0 ? -1 : 1;
+  if (isAutoThumbLoopDisabled()) {
+    moveTouchSlide(step);
+    return;
+  }
+
+  const row = getThumbRowEl();
+  if (!row) return;
+  const stepPx = resolveThumbStepPx();
+  if (!stepPx) return;
+
+  const loopDistance = getThumbLoopDistance();
+  if (!loopDistance) return;
+
+  pauseThumbLoop();
+  let target = row.scrollLeft + (stepPx * step);
+  if (target < 0) {
+    target += loopDistance;
+  } else if (target >= loopDistance) {
+    target -= loopDistance;
+  }
+  row.scrollTo({ left: target, behavior: 'smooth' });
+  resumeThumbLoop(THUMB_RESUME_DELAY_MS);
 };
 
 const handleThumbLeave = () => {
@@ -406,115 +451,94 @@ const togglePsFlipCard = (target, forceState) => {
   $card.toggleClass('is_flipped', nextState).attr('aria-pressed', String(nextState));
 };
 
-const THUMB_SPEED = 90;
-const MIN_THUMB_DURATION = 12;
-const MAX_THUMB_DURATION = 36;
-const THUMB_ARROW_HOLD_MS = 520;
-let thumbArrowResumeTimer = 0;
+const THUMB_AUTO_SCROLL_PX_PER_FRAME = 1.2;
+const THUMB_RESUME_DELAY_MS = 680;
+let thumbAutoRaf = 0;
+let thumbAutoResumeTimer = 0;
+let thumbAutoPaused = false;
 
-const resolveThumbDistance = ($track) => {
-  const track = $track[0];
-  if (!track) return 0;
+const isAutoThumbLoopDisabled = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
+const getThumbRowEl = () => {
+  const $row = $('#thumb_row');
+  if ($row.length === 0) return null;
+  return $row[0];
+};
+
+const getThumbLoopDistance = () => {
+  const $track = $('#thumb_track');
+  if ($track.length === 0) return 0;
   const $items = $track.children('.thumb_item');
-  const first = $items.get(0);
   const originalCount = Number($track.data('originalCount')) || 0;
-  const firstClone = originalCount > 0 ? $items.get(originalCount) : null;
+  if (originalCount <= 0 || $items.length <= originalCount) return 0;
 
-  if (first && firstClone) {
-    const cloneOffset = firstClone.offsetLeft - first.offsetLeft;
-    if (cloneOffset > 0) return cloneOffset;
-  }
-
-  return track.scrollWidth / 2;
-};
-
-const updateThumbLoop = () => {
-  const $track = $('#thumb_track');
-  if ($track.length === 0) return;
-  const distance = resolveThumbDistance($track);
-  if (!distance) return;
-  const duration = clamp(distance / THUMB_SPEED, MIN_THUMB_DURATION, MAX_THUMB_DURATION);
-  $track.css('--thumb_distance', `${distance.toFixed(2)}px`);
-  $track.css('--thumb_duration', `${duration.toFixed(2)}s`);
-};
-
-const resolveThumbStep = ($track) => {
-  const $items = $track.children('.thumb_item');
   const first = $items.get(0);
-  const second = $items.get(1);
-  if (!first) return 0;
-  if (second) return Math.abs(second.offsetLeft - first.offsetLeft);
-  return first.getBoundingClientRect().width;
+  const firstClone = $items.get(originalCount);
+  if (!first || !firstClone) return 0;
+  return Math.max(0, firstClone.offsetLeft - first.offsetLeft);
 };
 
-const nudgeThumbLoop = (direction) => {
-  const $track = $('#thumb_track');
-  if ($track.length === 0) return;
-
-  const track = $track[0];
-  const animation = track.getAnimations().find((item) => item.playState !== 'finished');
-  if (!animation) return;
-
-  const stepPx = resolveThumbStep($track);
-  if (!stepPx) return;
-
-  const computed = getComputedStyle(track);
-  const distance = Number.parseFloat(computed.getPropertyValue('--thumb_distance')) || (track.scrollWidth / 2);
-  if (!distance) return;
-
-  const timing = animation.effect && animation.effect.getTiming ? animation.effect.getTiming() : null;
-  const fallbackDuration = (Number.parseFloat(computed.getPropertyValue('--thumb_duration')) || 24) * 1000;
-  const loopDuration = typeof timing?.duration === 'number' ? timing.duration : fallbackDuration;
-  if (!loopDuration) return;
-
-  const delta = (stepPx / distance) * loopDuration * (direction > 0 ? 1 : -1);
-  const current = typeof animation.currentTime === 'number' ? animation.currentTime : 0;
-  let next = current + delta;
-  next = ((next % loopDuration) + loopDuration) % loopDuration;
-  animation.currentTime = next;
-};
-
-const moveThumbSlide = (direction) => {
-  const step = direction < 0 ? -1 : 1;
-  const $thumb_row = $('#thumb_row');
-  const $track = $('#thumb_track');
-  if ($thumb_row.length === 0 || $track.length === 0) return;
-
-  if (document.body.classList.contains('is_touch')) {
-    moveTouchSlide(step);
+const tickThumbLoop = () => {
+  const row = getThumbRowEl();
+  if (!row || isAutoThumbLoopDisabled()) {
+    thumbAutoRaf = 0;
     return;
   }
 
-  const stepPx = resolveThumbStep($track);
-  if (!stepPx) return;
+  if (!thumbAutoPaused && !document.hidden) {
+    const loopDistance = getThumbLoopDistance();
+    if (loopDistance > 0) {
+      row.scrollLeft += THUMB_AUTO_SCROLL_PX_PER_FRAME;
+      if (row.scrollLeft >= loopDistance) {
+        row.scrollLeft -= loopDistance;
+      }
+    }
+  }
 
-  $track.children('.thumb_item').removeClass('is_selected');
-  nudgeThumbLoop(step);
-  holdThumbLoopAfterArrow();
+  thumbAutoRaf = window.requestAnimationFrame(tickThumbLoop);
 };
 
-const resumeThumbLoop = () => {
-  const $track = $('#thumb_track');
-  if ($track.length === 0) return;
-  $track.css('animation-play-state', '');
+const startThumbLoop = () => {
+  if (isAutoThumbLoopDisabled()) return;
+  if (thumbAutoRaf) return;
+  thumbAutoRaf = window.requestAnimationFrame(tickThumbLoop);
+};
+
+const stopThumbLoop = () => {
+  if (thumbAutoRaf) {
+    window.cancelAnimationFrame(thumbAutoRaf);
+    thumbAutoRaf = 0;
+  }
+  if (thumbAutoResumeTimer) {
+    window.clearTimeout(thumbAutoResumeTimer);
+    thumbAutoResumeTimer = 0;
+  }
 };
 
 const pauseThumbLoop = () => {
-  const $track = $('#thumb_track');
-  if ($track.length === 0) return;
-  $track.css('animation-play-state', 'paused');
+  if (isAutoThumbLoopDisabled()) return;
+  thumbAutoPaused = true;
+  if (thumbAutoResumeTimer) {
+    window.clearTimeout(thumbAutoResumeTimer);
+    thumbAutoResumeTimer = 0;
+  }
 };
 
-const holdThumbLoopAfterArrow = () => {
-  pauseThumbLoop();
-  if (thumbArrowResumeTimer) {
-    window.clearTimeout(thumbArrowResumeTimer);
+const resumeThumbLoop = (delayMs = 0) => {
+  if (isAutoThumbLoopDisabled()) return;
+  if (thumbAutoResumeTimer) {
+    window.clearTimeout(thumbAutoResumeTimer);
+    thumbAutoResumeTimer = 0;
   }
-  thumbArrowResumeTimer = window.setTimeout(() => {
-    thumbArrowResumeTimer = 0;
-    resumeThumbLoop();
-  }, THUMB_ARROW_HOLD_MS);
+  if (delayMs > 0) {
+    thumbAutoResumeTimer = window.setTimeout(() => {
+      thumbAutoResumeTimer = 0;
+      thumbAutoPaused = false;
+    }, delayMs);
+  } else {
+    thumbAutoPaused = false;
+  }
+  startThumbLoop();
 };
 
 let touchScrollSyncFrame = 0;
@@ -536,27 +560,27 @@ $(function () {
   });
 
   const $thumb_track = $('#thumb_track');
-  if (!touchDevice && $thumb_track.length && !$thumb_track.data('looped')) {
-    $thumb_track.data('looped', true);
-    $thumb_track.data('originalCount', $thumb_track.children('.thumb_item').length);
-    $thumb_track.children().clone().appendTo($thumb_track);
-    updateThumbLoop();
-  }
   if ($thumb_track.length) {
+    if (!touchDevice && !$thumb_track.data('looped')) {
+      const originalCount = $thumb_track.children('.thumb_item').length;
+      $thumb_track.data('originalCount', originalCount);
+      $thumb_track.children('.thumb_item').clone().appendTo($thumb_track);
+      $thumb_track.data('looped', true);
+    }
     setActiveThumb($thumb_track.find('.thumb_item').first());
-  }
-  if (touchDevice && $thumb_track.length) {
-    touchSlideState.total = $thumb_track.children('.thumb_item').length;
+    touchSlideState.total = Number($thumb_track.data('originalCount')) || $thumb_track.children('.thumb_item').length;
     touchSlideState.index = 0;
   }
 
   const $thumb_row = $('#thumb_row');
   if ($thumb_row.length) {
+    $thumb_row[0].scrollLeft = 0;
+  }
+  startThumbLoop();
+  if ($thumb_row.length) {
     $thumb_row.on('pointerenter focusin click', '.thumb_item', function () {
       setActiveThumb(this);
-      if (touchDevice) {
-        touchSlideState.index = $(this).index();
-      }
+      touchSlideState.index = $(this).index();
     });
 
     if (!touchDevice) {
@@ -567,7 +591,6 @@ $(function () {
         handleThumbEnter(this);
       });
       $thumb_row.on('focusin', '.thumb_item', function () {
-        pauseThumbLoop();
         handleThumbEnter(this, true);
       });
       $thumb_row.on('pointerleave', () => {
@@ -584,28 +607,25 @@ $(function () {
     $thumb_row.on('click', '.thumb_btn_link', function () {
       // Keep marquee animation from staying paused after opening a new tab.
       this.blur();
-      resumeThumbLoop();
+      resumeThumbLoop(THUMB_RESUME_DELAY_MS);
     });
     if (!touchDevice) {
       $thumb_row.on('focusout', function (event) {
         if (!$.contains(this, event.relatedTarget)) {
           handleThumbLeave();
-          resumeThumbLoop();
         }
       });
-    } else {
-      $thumb_row.on('scroll', () => {
-        if (touchScrollSyncFrame) return;
-        touchScrollSyncFrame = window.requestAnimationFrame(() => {
-          touchScrollSyncFrame = 0;
-          syncTouchSlideState();
-        });
-      });
     }
+    $thumb_row.on('scroll', () => {
+      if (touchScrollSyncFrame) return;
+      touchScrollSyncFrame = window.requestAnimationFrame(() => {
+        touchScrollSyncFrame = 0;
+        syncTouchSlideState();
+      });
+    });
   }
-
-  $('#thumb_prev').on('click', () => moveThumbSlide(-1));
-  $('#thumb_next').on('click', () => moveThumbSlide(1));
+  $('#thumb_prev').on('click', () => nudgeThumbSlide(-1));
+  $('#thumb_next').on('click', () => nudgeThumbSlide(1));
 
   $('#preview_video').on('error', handleVideoError);
   $('#image_modal').on('click', (event) => {
@@ -628,11 +648,14 @@ $(function () {
   });
 
   $(window).on('load resize orientationchange', () => {
-    updateThumbLoop();
     $('#speech_stream .bubble_text').each((_, item) => fitBubbleText(item));
-    if (touchDevice) {
-      touchSlideState.total = $('#thumb_track').children('.thumb_item').length;
-      syncTouchSlideState();
+    touchSlideState.total = Number($('#thumb_track').data('originalCount')) || $('#thumb_track').children('.thumb_item').length;
+    syncTouchSlideState();
+    if (isAutoThumbLoopDisabled()) {
+      stopThumbLoop();
+      thumbAutoPaused = false;
+    } else {
+      startThumbLoop();
     }
   });
   $(window).on('focus pageshow', () => {
@@ -648,6 +671,7 @@ $(function () {
       resumeThumbLoop();
       resumeCopyStage();
     } else {
+      pauseThumbLoop();
       stopCopyStage();
     }
   });

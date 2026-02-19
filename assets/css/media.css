@@ -143,7 +143,7 @@
   :root{
     --badge_size: 72px;
     --badge_gap: 8px;
-    --badge_right: 18px;
+    --badge_right: max(6px, env(safe-area-inset-right));
     --badge_top: 28px;
     --badge_radius: 12px;
   }

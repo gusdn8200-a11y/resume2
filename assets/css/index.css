@@ -131,12 +131,12 @@ body{
   width: clamp(250px, 28vw, 420px);
   height: clamp(230px, 31vh, 330px);
   position: relative;
-  transform: translateY(-18px);
+  top: -62px;
 }
 
 .bubble_item{
   --bubble_enter_x: 0px;
-  width: clamp(175px, 14.6vw, 240px);
+  width: clamp(188px, 15.8vw, 258px);
   aspect-ratio: 1 / 1;
   position: absolute;
   display: flex;
@@ -172,22 +172,23 @@ body{
 }
 .bubble_item.slot_0{
   top: 0;
-  left: 0;
+  left: -3%;
 }
 .bubble_item.slot_1{
-  top: 22%;
-  right: 2%;
+  top: 25%;
+  right: -1%;
 }
 .bubble_item.slot_2{
-  top: 44%;
-  left: 2%;
+  top: 50%;
+  left: -1%;
 }
 .bubble_item.slot_3{
-  top: 66%;
-  right: 0;
+  top: 75%;
+  right: -3%;
 }
 
 .bubble_text{
+  --bubble_min_font_size: 10.5;
   font-weight: 600;
   letter-spacing: 0.03em;
   line-height: 1.5;
@@ -197,14 +198,14 @@ body{
   height: 42%;
   max-height: 42%;
   color: var(--fg);
-  font-size: clamp(12px, .86vw, 15px);
+  font-size: clamp(12.5px, .84vw, 15.5px);
   text-align:center;
   line-height: 1.42;
   word-break: keep-all;
   overflow-wrap: break-word;
   overflow: hidden;
   position: absolute;
-  top: 52%;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-shadow: 0 1px 3px rgba(34,45,64,.08);
@@ -212,7 +213,29 @@ body{
 }
 .bubble_item.slot_1 .bubble_text,
 .bubble_item.slot_3 .bubble_text{
-  top: 56%;
+  top: 58%;
+}
+.bubble_item.slot_2 .bubble_text{
+  width: 58%;
+  max-width: 58%;
+}
+.bubble_text.is_multiline{
+  --bubble_min_font_size: 9.4;
+  top: 52%;
+  line-height: 1.33;
+}
+.bubble_item.slot_2 .bubble_text.is_multiline{
+  --bubble_min_font_size: 8.8;
+  width: 60%;
+  max-width: 60%;
+  height: 46%;
+  max-height: 46%;
+  top: 51%;
+  line-height: 1.28;
+}
+.bubble_item.slot_1 .bubble_text.is_multiline,
+.bubble_item.slot_3 .bubble_text.is_multiline{
+  top: 55%;
 }
 .copy{
   width: clamp(420px, 44vw, 740px);

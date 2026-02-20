@@ -43,9 +43,13 @@ const isTouchDevice = () => (
   window.matchMedia('(hover: none) and (pointer: coarse)').matches
 );
 const isMobileBubbleMode = () => (
-  window.matchMedia('(hover: none) and (pointer: coarse)').matches &&
   window.matchMedia(`(max-width: ${MOBILE_BUBBLE_MAX_WIDTH}px)`).matches
 );
+const syncMobileBubbleModeClass = () => {
+  const active = isMobileBubbleMode();
+  document.body.classList.toggle('is_mobile_bubble_mode', active);
+  return active;
+};
 const getBubbleDelay = (delayMs) => (
   isMobileBubbleMode() ? Math.round(delayMs * MOBILE_BUBBLE_SLOW_FACTOR) : delayMs
 );
@@ -70,20 +74,36 @@ const queueBubbleTimer = (callback, delayMs) => {
   return timerId;
 };
 
-const fitBubbleText = (element) => {
-  if (!element) return;
-  element.style.fontSize = '';
-  let size = Number.parseFloat(window.getComputedStyle(element).fontSize) || 12;
-  const minSize = 10;
+const isBubbleTextOverflowing = (element) => (
+  element.scrollHeight > element.clientHeight + 1 ||
+  element.scrollWidth > element.clientWidth + 1
+);
+
+const fitBubbleTextToBounds = (element) => {
+  const styles = window.getComputedStyle(element);
+  let size = Number.parseFloat(styles.fontSize) || 12;
+  const minSize = Number.parseFloat(styles.getPropertyValue('--bubble_min_font_size')) || 10;
   let attempts = 0;
-  while (
-    attempts < 24 &&
-    size > minSize &&
-    (element.scrollHeight > element.clientHeight + 1 || element.scrollWidth > element.clientWidth + 1)
-  ) {
+  while (attempts < 28 && size > minSize && isBubbleTextOverflowing(element)) {
     size -= 0.5;
     element.style.fontSize = `${size}px`;
     attempts += 1;
+  }
+};
+
+const fitBubbleText = (element) => {
+  if (!element) return;
+  element.classList.remove('is_multiline');
+  element.style.fontSize = '';
+  fitBubbleTextToBounds(element);
+
+  const computed = window.getComputedStyle(element);
+  const lineHeight = Number.parseFloat(computed.lineHeight);
+  const isMultiline = Number.isFinite(lineHeight) && lineHeight > 0 && element.scrollHeight > lineHeight * 1.55;
+  if (isMultiline) {
+    element.classList.add('is_multiline');
+    element.style.fontSize = '';
+    fitBubbleTextToBounds(element);
   }
 };
 
@@ -576,6 +596,7 @@ $(function () {
   if (touchDevice) {
     document.body.classList.add('is_touch');
   }
+  let currentMobileBubbleMode = syncMobileBubbleModeClass();
 
   setupCopyStage();
   $(document).on('intro:enter', () => {
@@ -676,6 +697,20 @@ $(function () {
   });
 
   $(window).on('load resize orientationchange', () => {
+    const nextMobileBubbleMode = syncMobileBubbleModeClass();
+    const modeChanged = nextMobileBubbleMode !== currentMobileBubbleMode;
+    currentMobileBubbleMode = nextMobileBubbleMode;
+
+    if (nextMobileBubbleMode) {
+      const $bubbles = $('#speech_stream .bubble_item');
+      if ($bubbles.length > 1) {
+        $bubbles.not(':last').remove();
+      }
+    }
+    if (modeChanged && copyState.hasStarted && !isIntroOverlayActive()) {
+      copyState.hasCompletedOnce = false;
+      startCopyStage(120);
+    }
     $('#speech_stream .bubble_text').each((_, item) => fitBubbleText(item));
     positionImageCloseButton();
     touchSlideState.total = Number($('#thumb_track').data('originalCount')) || $('#thumb_track').children('.thumb_item').length;

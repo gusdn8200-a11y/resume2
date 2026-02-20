@@ -51,33 +51,37 @@
   .speech_stream{
     width: clamp(230px, 31vw, 330px);
     height: clamp(220px, 31vh, 300px);
-    transform: translateY(-16px);
+    top: -56px;
   }
   .bubble_item{
-    width: clamp(162px, 17vw, 206px);
+    width: clamp(174px, 18.4vw, 224px);
   }
   .bubble_item.slot_0{
     top: 0;
-    left: 0;
+    left: -2%;
   }
   .bubble_item.slot_1{
-    top: 22%;
-    right: 1%;
+    top: 25%;
+    right: -1%;
   }
   .bubble_item.slot_2{
-    top: 44%;
-    left: 1%;
+    top: 50%;
+    left: -1%;
   }
   .bubble_item.slot_3{
-    top: 66%;
-    right: 0;
+    top: 68%;
+    right: -2%;
   }
   .bubble_text{
+    --bubble_min_font_size: 10;
     width: 56%;
     max-width: 56%;
     height: 42%;
     max-height: 42%;
-    font-size: clamp(10.5px, .86vw, 13px);
+    font-size: clamp(11px, 1vw, 13.5px);
+  }
+  .bubble_text.is_multiline{
+    --bubble_min_font_size: 9;
   }
   .copy{
     width: clamp(290px, 42vw, 510px);
@@ -213,40 +217,83 @@
     position: absolute;
     left: 0;
     top: 50%;
-    width: min(42vw, 176px);
-    height: min(42vw, 176px);
+    width: min(46vw, 194px);
+    height: min(46vw, 194px);
     align-self: auto;
     transform: translateY(-50%);
     z-index: 2;
     pointer-events: none;
   }
   .bubble_item{
-    width: 100%;
+    width: clamp(128px, 31vw, 162px);
+  }
+  body:not(.is_mobile_bubble_mode) .copy{
+    padding-left: min(50vw, 220px);
+  }
+  body:not(.is_mobile_bubble_mode) .speech_stream{
+    width: min(50vw, 210px);
+    height: min(50vw, 210px);
+  }
+  body:not(.is_mobile_bubble_mode) .bubble_item{
+    width: clamp(96px, 24vw, 112px);
   }
   .bubble_item.slot_0{
     top: 0;
     left: 0;
   }
   .bubble_item.slot_1{
-    top: 0;
-    left: 0;
-    right: auto;
+    top: 16%;
+    right: 0;
+    left: auto;
   }
   .bubble_item.slot_2{
+    top: 38%;
+    left: 2%;
+  }
+  .bubble_item.slot_3{
+    top: 60%;
+    right: 1%;
+    left: auto;
+  }
+  body:not(.is_mobile_bubble_mode) .bubble_item.slot_0{
     top: 0;
     left: 0;
   }
-  .bubble_item.slot_3{
+  body:not(.is_mobile_bubble_mode) .bubble_item.slot_1{
+    top: 0;
+    right: 0;
+    left: auto;
+  }
+  body:not(.is_mobile_bubble_mode) .bubble_item.slot_2{
+    top: 50%;
+    left: 0;
+  }
+  body:not(.is_mobile_bubble_mode) .bubble_item.slot_3{
+    top: 50%;
+    right: 0;
+    left: auto;
+  }
+  body.is_mobile_bubble_mode .bubble_item{
+    width: 100%;
+  }
+  body.is_mobile_bubble_mode .bubble_item.slot_0,
+  body.is_mobile_bubble_mode .bubble_item.slot_1,
+  body.is_mobile_bubble_mode .bubble_item.slot_2,
+  body.is_mobile_bubble_mode .bubble_item.slot_3{
     top: 0;
     left: 0;
     right: auto;
   }
   .bubble_text{
+    --bubble_min_font_size: 9.5;
     width: 56%;
     max-width: 56%;
     height: 42%;
     max-height: 42%;
-    font-size: clamp(10px, 2.6vw, 12.5px);
+    font-size: clamp(10.2px, 2.9vw, 12.8px);
+  }
+  .bubble_text.is_multiline{
+    --bubble_min_font_size: 8.6;
   }
   .rail{
     flex: 0 0 20vh;
@@ -329,6 +376,16 @@
     right: 16px;
     bottom: 14px;
     font-size: 16px;
+  }
+}
+
+@media (max-width: 420px){
+  .bubble_text{
+    --bubble_min_font_size: 9;
+    font-size: clamp(9.4px, 3.4vw, 11.4px);
+  }
+  .bubble_text.is_multiline{
+    --bubble_min_font_size: 8.2;
   }
 }
 

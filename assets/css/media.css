@@ -304,8 +304,8 @@
     border-radius: 12px;
   }
   .image_close{
-    top: 10px;
-    right: 10px;
+    top: max(10px, env(safe-area-inset-top));
+    right: max(10px, env(safe-area-inset-right));
   }
 }
 

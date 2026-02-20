@@ -16,7 +16,8 @@ const BUBBLE_DISPLAY_MS = 1000;
 const BUBBLE_REMOVE_MS = 360;
 const BUBBLE_SWITCH_GAP_MS = 120;
 const BUBBLE_START_DELAY_MS = 620;
-const MOBILE_BUBBLE_SLOW_FACTOR = 1;
+const MOBILE_BUBBLE_MAX_WIDTH = 700;
+const MOBILE_BUBBLE_SLOW_FACTOR = 1.55;
 
 const copyState = {
   stage: 0,
@@ -41,7 +42,10 @@ const isTouchDevice = () => (
   navigator.maxTouchPoints > 0 ||
   window.matchMedia('(hover: none) and (pointer: coarse)').matches
 );
-const isMobileBubbleMode = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const isMobileBubbleMode = () => (
+  window.matchMedia('(hover: none) and (pointer: coarse)').matches &&
+  window.matchMedia(`(max-width: ${MOBILE_BUBBLE_MAX_WIDTH}px)`).matches
+);
 const getBubbleDelay = (delayMs) => (
   isMobileBubbleMode() ? Math.round(delayMs * MOBILE_BUBBLE_SLOW_FACTOR) : delayMs
 );
@@ -385,6 +389,24 @@ const handleVideoError = () => {
   }
 };
 
+const positionImageCloseButton = () => {
+  const $image_modal = $('#image_modal');
+  const $image_card = $image_modal.find('.image_card');
+  const $image_close = $image_modal.find('.image_close');
+  if ($image_modal.length === 0 || $image_card.length === 0 || $image_close.length === 0) return;
+  if (!$image_modal.hasClass('is_open')) return;
+
+  const cardRect = $image_card[0].getBoundingClientRect();
+  const offset = window.matchMedia('(max-width: 700px)').matches ? 10 : 14;
+  const top = Math.max(offset, Math.round(cardRect.top + offset));
+  const right = Math.max(offset, Math.round(window.innerWidth - cardRect.right + offset));
+
+  $image_close.css({
+    top: `${top}px`,
+    right: `${right}px`,
+  });
+};
+
 const openImageModal = (imageSrc) => {
   if (!imageSrc) return;
   const resolvedSrc = new URL(imageSrc, window.location.href).href;
@@ -393,14 +415,20 @@ const openImageModal = (imageSrc) => {
   if ($image_modal.length === 0 || $preview_image.length === 0) return;
   $preview_image.attr('src', resolvedSrc);
   $image_modal.addClass('is_open').attr('aria-hidden', 'false');
+  requestAnimationFrame(positionImageCloseButton);
 };
 
 const closeImageModal = () => {
   const $image_modal = $('#image_modal');
   const $preview_image = $('#preview_image');
+  const $image_close = $image_modal.find('.image_close');
   if ($image_modal.length === 0 || $preview_image.length === 0) return;
   $image_modal.removeClass('is_open').attr('aria-hidden', 'true');
   $preview_image.attr('src', '');
+  $image_close.css({
+    top: '',
+    right: '',
+  });
 };
 
 const setDrawerState = ($panel, $backdrop, $toggle, willOpen) => {
@@ -649,6 +677,7 @@ $(function () {
 
   $(window).on('load resize orientationchange', () => {
     $('#speech_stream .bubble_text').each((_, item) => fitBubbleText(item));
+    positionImageCloseButton();
     touchSlideState.total = Number($('#thumb_track').data('originalCount')) || $('#thumb_track').children('.thumb_item').length;
     syncTouchSlideState();
     if (isAutoThumbLoopDisabled()) {

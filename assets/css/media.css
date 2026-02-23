@@ -309,6 +309,31 @@
     flex: 0 0 clamp(236px, 68vw, 286px);
     border-radius: 16px;
   }
+  .thumb_btns{
+    flex-direction: column;
+    gap: 8px;
+  }
+  .thumb_btn{
+    min-width: 122px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .thumb_btn_view{
+    min-width: 154px;
+    min-height: 42px;
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .thumb_btn_link{
+    min-width: 154px;
+  }
+  .thumb_btn_name{
+    font-size: 12px;
+  }
+  .thumb_btn_desc{
+    font-size: 10px;
+  }
   .thumb_item.is_selected,
   .thumb_item:hover,
   .thumb_item:focus-within{

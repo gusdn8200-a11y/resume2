@@ -505,7 +505,9 @@ let thumbAutoRaf = 0;
 let thumbAutoResumeTimer = 0;
 let thumbAutoPaused = false;
 
-const isAutoThumbLoopDisabled = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const isMobilePointerMode = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const isAutoThumbLoopDisabled = isMobilePointerMode;
+const isPsFlipClickEnabled = isMobilePointerMode;
 
 const getThumbRowEl = () => {
   const $row = $('#thumb_row');
@@ -687,11 +689,14 @@ $(function () {
   $('#ps_panel').on('click', '.drawer_close', () => togglePsPanel(false));
   $('#ps_panel .ps_main.ps_flip').attr('role', 'button').attr('aria-pressed', 'false');
   $('#ps_panel').on('click', '.ps_main.ps_flip', function (event) {
+    if (!isPsFlipClickEnabled()) return;
     event.preventDefault();
     togglePsFlipCard(this);
+    if (this.blur) this.blur();
   });
   $('#ps_panel').on('keydown', '.ps_main.ps_flip', function (event) {
     if (event.key !== 'Enter' && event.key !== ' ') return;
+    if (!isPsFlipClickEnabled()) return;
     event.preventDefault();
     togglePsFlipCard(this);
   });
@@ -715,6 +720,9 @@ $(function () {
     positionImageCloseButton();
     touchSlideState.total = Number($('#thumb_track').data('originalCount')) || $('#thumb_track').children('.thumb_item').length;
     syncTouchSlideState();
+    if (!isPsFlipClickEnabled()) {
+      $('#ps_panel .ps_main.ps_flip').removeClass('is_flipped').attr('aria-pressed', 'false');
+    }
     if (isAutoThumbLoopDisabled()) {
       stopThumbLoop();
       thumbAutoPaused = false;

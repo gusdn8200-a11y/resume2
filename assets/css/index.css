@@ -820,13 +820,19 @@ body{
   height: 100%;
 }
 .ps_main.ps_flip:hover .ps_back,
-.ps_main.ps_flip:focus-visible .ps_back,
-.ps_main.ps_flip:focus-within .ps_back,
 .ps_main.ps_flip.is_flipped .ps_back{
   opacity: 1;
 }
 .ps_main.ps_flip:focus-visible{
   box-shadow: 0 0 0 2px rgba(255,176,32,.75), 0 12px 24px rgba(0,0,0,.12);
+}
+@media (hover: none) and (pointer: coarse){
+  .ps_main.ps_flip:hover .ps_back{
+    opacity: 0;
+  }
+  .ps_main.ps_flip.is_flipped .ps_back{
+    opacity: 1;
+  }
 }
 .ps_face{
   position: absolute;

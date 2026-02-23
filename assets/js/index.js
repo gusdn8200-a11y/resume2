@@ -53,6 +53,14 @@ const syncMobileBubbleModeClass = () => {
 const getBubbleDelay = (delayMs) => (
   isMobileBubbleMode() ? Math.round(delayMs * MOBILE_BUBBLE_SLOW_FACTOR) : delayMs
 );
+const syncBackButtonVisibility = () => {
+  const shouldHide = (
+    $('#video_modal').hasClass('is_open') ||
+    $('#image_modal').hasClass('is_open') ||
+    $('#ps_panel').hasClass('is_open')
+  );
+  document.body.classList.toggle('is_cover_ui_open', shouldHide);
+};
 
 const clearCopyTimers = () => {
   if (copyState.removeTimers.length) {
@@ -241,6 +249,7 @@ const openPreview = (src) => {
     preview_video.load();
   }
   $video_modal.addClass('is_open').attr('aria-hidden', 'false');
+  syncBackButtonVisibility();
   preview_video.play().catch(() => {});
 };
 
@@ -252,6 +261,7 @@ const closePreview = () => {
 
   preview_video.pause();
   $video_modal.removeClass('is_open').attr('aria-hidden', 'true');
+  syncBackButtonVisibility();
 };
 
 const clearPreviewTimer = () => {
@@ -435,6 +445,7 @@ const openImageModal = (imageSrc) => {
   if ($image_modal.length === 0 || $preview_image.length === 0) return;
   $preview_image.attr('src', resolvedSrc);
   $image_modal.addClass('is_open').attr('aria-hidden', 'false');
+  syncBackButtonVisibility();
   requestAnimationFrame(positionImageCloseButton);
 };
 
@@ -449,6 +460,7 @@ const closeImageModal = () => {
     top: '',
     right: '',
   });
+  syncBackButtonVisibility();
 };
 
 const setDrawerState = ($panel, $backdrop, $toggle, willOpen) => {
@@ -490,6 +502,7 @@ const togglePsPanel = (forceOpen) => {
   if ($panel.length === 0) return;
   const willOpen = typeof forceOpen === 'boolean' ? forceOpen : !$panel.hasClass('is_open');
   setDrawerState($panel, $backdrop, $toggle, willOpen);
+  syncBackButtonVisibility();
 };
 
 const togglePsFlipCard = (target, forceState) => {
@@ -599,6 +612,7 @@ $(function () {
     document.body.classList.add('is_touch');
   }
   let currentMobileBubbleMode = syncMobileBubbleModeClass();
+  syncBackButtonVisibility();
 
   setupCopyStage();
   $(document).on('intro:enter', () => {

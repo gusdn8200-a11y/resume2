@@ -157,6 +157,35 @@
     grid-row: auto;
   }
 
+  .product-card,
+  .product-card.wide,
+  .product-card.tall,
+  .product-card-inner {
+    min-height: 340px;
+  }
+
+  .product-back {
+    gap: 0.5rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .product-meta li {
+    align-items: flex-start;
+    padding: 0.38rem 0.44rem;
+  }
+
+  .product-meta span,
+  .product-meta strong {
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .meta-note {
+    font-size: 0.69rem;
+  }
+
   .product-card img {
     height: 170px;
   }

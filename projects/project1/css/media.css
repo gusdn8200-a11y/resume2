@@ -27,10 +27,40 @@
   .side-float{
     display: none;
   }
+  .footer{
+    padding: 86px 0 40px;
+  }
   .footer-grid{
     flex-direction: column;
-    gap: 48px;
+    gap: 16px;
     align-items: stretch;
+  }
+  .footer-block,
+  .footer-block--brand,
+  .footer-block--news{
+    flex: 0 0 auto;
+    width: 100%;
+  }
+  .footer-block{
+    gap: 4px;
+  }
+  .footer-block p,
+  .footer-block a{
+    font-size: 13px;
+    line-height: 1.42;
+  }
+  .footer-mark{
+    margin-bottom: 4px;
+  }
+  .footer-mark img{
+    width: 108px;
+  }
+  .footer-socials{
+    gap: 8px;
+  }
+  .footer-social{
+    width: 38px;
+    height: 38px;
   }
 }
 
@@ -106,19 +136,43 @@
     font-size: 40px;
   }
   .carousel{
-    padding: 80px 0;
+    padding: 56px 0;
     margin-top: 0;
   }
   .carousel-slide{
-    height: 420px;
-    padding: 70px 40px;
-    border-radius: 180px;
+    height: auto;
+    min-height: 500px;
+    padding: 34px 24px 30px;
+    border-radius: 52px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
   }
   .carousel-content{
-    margin-left: 40px;
+    order: 2;
+    margin-left: 0;
+    max-width: min(78vw, 440px);
+    text-align: center;
   }
   .carousel-content h2{
-    font-size: 42px;
+    font-size: clamp(32px, 6.4vw, 42px);
+    margin-bottom: 10px;
+  }
+  .carousel-content p{
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.9);
+  }
+  .carousel-visual{
+    position: relative;
+    right: auto;
+    top: auto;
+    order: 1;
+    transform: none;
+    width: min(76vw, 360px);
+    height: min(54vw, 270px);
   }
   .intro-copy h2{
     font-size: 30px;
@@ -184,25 +238,39 @@
     display: none;
   }
   .carousel-slide{
-    height: 380px;
-    padding: 60px 28px;
-    border-radius: 160px;
+    min-height: 438px;
+    padding: 26px 16px 24px;
+    border-radius: 34px;
   }
   .carousel-content{
-    margin-left: 0;
+    max-width: min(88vw, 340px);
   }
   .carousel-content h2{
-    font-size: 34px;
+    font-size: clamp(26px, 8vw, 34px);
+    margin-bottom: 8px;
+  }
+  .carousel-content p{
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 1.42;
+  }
+  .carousel-visual{
+    width: min(84vw, 304px);
+    height: min(62vw, 232px);
+  }
+  .cta-btn{
+    padding: 12px 22px;
+    font-size: 14px;
   }
   .carousel-arrow{
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
   .carousel-arrow--prev{
-    left: 28px;
+    left: 12px;
   }
   .carousel-arrow--next{
-    right: 28px;
+    right: 12px;
   }
   .story-left p,
   .story-right p{
@@ -215,6 +283,20 @@
     height: 260px;
   }
   .footer{
-    padding: 160px 0 90px;
+    padding: 64px 0 28px;
+  }
+  .footer-grid{
+    gap: 12px;
+  }
+  .footer-block--news h4{
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  .footer-block--news p{
+    margin-bottom: 6px;
+  }
+  .footer-social img{
+    width: 18px;
+    height: 18px;
   }
 }

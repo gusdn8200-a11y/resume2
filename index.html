@@ -9,11 +9,10 @@
   <link rel="stylesheet" href="./assets/css/index.css">
   <link rel="stylesheet" href="./assets/css/intro.css">
   <link rel="stylesheet" href="./assets/css/media.css">
- 
 </head>
 
 <body>
-  <div class="intro_overlay" id="intro_overlay" aria-hidden="true">
+  <div class="intro_overlay" id="intro_overlay" aria-hidden="true" inert>
     <div class="intro_inner">
       <div class="intro_word" aria-label="Portfolio">
         <span class="intro_letter" style="--dx:-140px; --dy:-90px; --delay:0s;">P</span>
@@ -66,11 +65,18 @@
         </ul>
       </section>
 
+      <div class="badge_wrap badge_left">
+        <button class="badge_btn badge_ps" id="ps_toggle" type="button" aria-controls="ps_panel" aria-expanded="false">
+          <span class="badge_line">Design</span>
+          <span class="badge_line">Assets</span>
+        </button>
+      </div>
+
       <section class="card">
         <h3><span class="dot"></span>STACK</h3>
         <ul>
           <li>HTML · CSS · JavaScript</li>
-          <li>React</li>
+          <li>Photoshop · React</li>
         </ul>
       </section>
 
@@ -81,8 +87,6 @@
           <li>유지보수 중심 CSS</li>
         </ul>
       </section>
-
-      
     </header>
 
     <main class="hero">
@@ -93,15 +97,6 @@
         </div>
       </div>
     </main>
-
-    <div class="badge_wrap badge_left">
-      <button class="badge_btn badge_ps" id="ps_toggle" type="button" aria-controls="ps_panel" aria-expanded="false">
-        <span class="badge_line">Design</span>
-        <span class="badge_line">Assets</span>
-      </button>
-    </div>
-
-
     <footer class="rail">
       <div class="rail_inner">
         <div class="thumbs" id="thumb_row" aria-label="Projects">
@@ -118,7 +113,7 @@
 
             <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_2.mp4"
-                 data-home="./assets/img/2.png">
+                data-home="./assets/img/2.png">
               <img class="thumb_img" src="./assets/img/s_2.png" alt="WALLD preview" loading="lazy" decoding="async">
               <div class="thumb_btns">
                 <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
@@ -128,7 +123,7 @@
 
             <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_3.mp4"
-                 data-home="./assets/img/3.png">
+                data-home="./assets/img/3.png">
               <img class="thumb_img" src="./assets/img/s_3.png" alt="K-PET FAIR preview" loading="lazy" decoding="async">
               <div class="thumb_btns">
                 <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
@@ -138,7 +133,7 @@
 
             <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_4.mp4"
-                 data-home="./assets/img/4.png">
+                data-home="./assets/img/4.png">
               <img class="thumb_img" src="./assets/img/s_4.png" alt="SAMSUNG DESIGN AWARDS preview" loading="lazy" decoding="async">
               <div class="thumb_btns">
                 <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
@@ -148,7 +143,7 @@
 
             <div class="thumb_item" tabindex="0"
                 data-video="./assets/img/v_5.mp4"
-                 data-home="./assets/img/5.png">
+                data-home="./assets/img/5.png">
               <img class="thumb_img" src="./assets/img/s_5.png" alt="LEMONA preview" loading="lazy" decoding="async">
               <div class="thumb_btns">
                 <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>
@@ -157,8 +152,8 @@
             </div>
 
             <div class="thumb_item" tabindex="0"
-                 data-video="./assets/img/v_6.mp4"
-                 data-home="./assets/img/6.png">
+                data-video="./assets/img/v_6.mp4"
+                data-home="./assets/img/6.png">
               <img class="thumb_img" src="./assets/img/s_6.png" alt="KAUAI COFFEE preview" loading="lazy" decoding="async">
               <div class="thumb_btns">
                 <button class="thumb_btn thumb_btn_view" type="button">상세페이지 설명</button>

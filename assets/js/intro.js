@@ -4,6 +4,17 @@ $(function () {
   const $backBtn = $('#intro_back_btn');
   if (!$overlay.length || !$enterBtn.length) return;
   let closeTimer = 0;
+  const overlayEl = $overlay[0];
+
+  function moveFocusOutsideIntro() {
+    const activeEl = document.activeElement;
+    if (!activeEl || !overlayEl || !overlayEl.contains(activeEl)) return;
+    if ($backBtn.length) {
+      $backBtn[0].focus();
+      return;
+    }
+    activeEl.blur();
+  }
 
   function openIntro() {
     if (closeTimer) {
@@ -12,11 +23,12 @@ $(function () {
     }
 
     $overlay.css('display', 'grid');
-    $overlay.removeClass('is_done').attr('aria-hidden', 'false');
+    $overlay.removeClass('is_done').removeAttr('inert').attr('aria-hidden', 'false');
     $('body').addClass('intro_lock');
 
     requestAnimationFrame(function () {
       $overlay.addClass('is_active');
+      $enterBtn[0].focus();
     });
 
     $(document).trigger('intro:opened');
@@ -24,6 +36,8 @@ $(function () {
 
   function closeIntro() {
     if (!$overlay.hasClass('is_active')) return;
+    moveFocusOutsideIntro();
+    $overlay.attr('inert', '');
     $overlay.removeClass('is_active').addClass('is_done').attr('aria-hidden', 'true');
     $('body').removeClass('intro_lock');
 

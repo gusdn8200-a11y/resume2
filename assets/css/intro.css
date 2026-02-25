@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+.intro_word,
+.intro_value_main,
+.intro_value_sub,
+.intro_enter,
+.intro_en,
+.intro_year{
+  font-family: "Noto Sans KR", "Pretendard Variable", "Pretendard", sans-serif;
+}
+
 .intro_overlay{
   position: fixed;
   inset: 0;

@@ -105,7 +105,11 @@
     height: 42px;
     font-size: 21px;
   }
-  .thumbs{margin-top: 6px; padding-bottom: 10px}
+  .thumbs{
+    margin-top: 6px;
+    padding-bottom: 10px;
+    transform: translateY(-22px);
+  }
   .drawer{
     width: 100vw;
     padding: 20px;
@@ -359,7 +363,11 @@
     padding: 28px 0 4px;
     align-items: flex-start;
   }
-  .thumbs{margin-top: 0; padding-bottom: 4px}
+  .thumbs{
+    margin-top: 0;
+    padding-bottom: 4px;
+    transform: translateY(-22px);
+  }
   .thumbs_track{
     gap: 8px;
     border-radius: 14px;

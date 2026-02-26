@@ -89,8 +89,7 @@ body.is_cover_ui_open .intro_back_btn{
   transform: translateX(0);
 }
 .intro_back_btn:focus-visible{
-  outline: 2px solid rgba(255,176,32,.9);
-  outline-offset: 3px;
+  outline: none;
 }
 
 .intro_inner{

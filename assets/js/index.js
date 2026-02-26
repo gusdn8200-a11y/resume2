@@ -35,6 +35,305 @@ const touchSlideState = {
 
 const PREVIEW_HOVER_DELAY_MS = 160;
 let previewTimer = 0;
+let imageModalReturnFocusEl = null;
+const PROGRAM_BADGE_IMAGE_SOURCES = {
+  vue: './assets/img/details/vue_icon.png',
+  react: './assets/img/details/react_icon.png',
+};
+const PROGRAM_BADGE_ICONS = {
+  vue: `
+    <svg viewBox="0 0 261.76 226.69" aria-hidden="true" focusable="false">
+      <path fill="#41B883" d="M161.096 0L130.88 52.304 100.664 0H0l130.88 226.69L261.76 0z"></path>
+      <path fill="#35495E" d="M161.096 0L130.88 52.304 100.664 0H48.32l82.56 143.04L213.44 0z"></path>
+    </svg>
+  `,
+};
+const HOME_TEMPLATE_DATA = {
+  jinro: {
+    title: '진로 글로벌',
+    introLines: [
+      '기존 랜딩은 제품 정보가 분산돼 비교·선택에 시간이 걸렸습니다.',
+      '이를 개선하기 위해 랜딩 구조를 인지 → 비교 → 전환 흐름으로 재구성했습니다.',
+    ],
+    colors: [
+      { dot: '#111111', code: '#111' },
+      { dot: '#ff6a4d', code: '#ff6a4d' },
+      { dot: '#f637b2', code: '#f637b2' },
+    ],
+    period: '5일',
+    contribution: '100%',
+    programBadges: [
+      { type: 'html', label: '5' },
+      { type: 'js', label: 'JS' },
+      { type: 'css', label: '3' },
+    ],
+    introImage: './assets/img/details/m1.png',
+    introAlt: '진로 메인 랜딩 미리보기',
+    sections: [
+      {
+        image: './assets/img/details/1_1.png',
+        alt: '히어로 섹션 시안',
+        heading: '(히어로 캡션)',
+        lines: [
+          '· 히어로는 제품 비주얼을 크게 고정해 첫 인상을 강화했습니다.',
+          '· CTA는 한 번에 보이도록 좌측에 배치했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/1_2.png',
+        alt: '추천 섹션 시안',
+        heading: '(추천 섹션 캡션)',
+        lines: [
+          '· 도수·무드가 다른 제품을 카드로 나란히 비교하도록 구성했습니다.',
+          '· 제품 보기 CTA로 상세 페이지 진입을 자연스럽게 유도했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/1_3.png',
+        alt: '뉴스레터 섹션 시안',
+        heading: '(뉴스레터 캡션)',
+        lines: [
+          '· 뉴스레터 섹션은 SNS 콘텐츠를 그리드로 큐레이션해 브랜드 무드가 연속적으로 쌓이게 구성했습니다.',
+          '· 동일한 라운드·간격 규칙을 유지해 섹션이 바뀌어도 시각 리듬이 끊기지 않도록 정리했습니다.',
+        ],
+      },
+    ],
+  },
+  walld: {
+    title: 'WALLD',
+    introLines: [
+      '대표 작업을 큼직한 갤러리 형태로 먼저 노출해 사이트의 정체성과 작업 스케일을 한 번에 보여주었습니다.',
+      '상단 네비게이션은 최소 요소만 남기고 중앙 정렬로 배치해 콘텐츠 몰입을 방해하지 않도록 구성했습니다.',
+    ],
+    colors: [
+      { dot: '#c50608', code: '#c50608' },
+      { dot: '#151a20', code: '#151a20' },
+      { dot: '#f3f4f6', code: '#f3f4f6' },
+    ],
+    period: '4일',
+    contribution: '100%',
+    programBadges: [
+      { type: 'vue', label: 'VUE' },
+    ],
+    introImage: './assets/img/details/m2.png',
+    introAlt: 'WALLD 상세 시안',
+    sections: [
+      {
+        image: './assets/img/details/2_1.png',
+        alt: 'WALLD 타임라인 섹션 시안',
+        heading: '(타임라인 캡션)',
+        lines: [
+          '· 브랜드 성장 과정을 Vue 컴포넌트 기반 타임라인 섹션으로 구성해, 연도별 히스토리를 한눈에 확인할 수 있도록 구현했습니다.',
+          '· 좌측 타이틀/우측 리스트를 데이터 바인딩(v-for) 구조로 분리해 핵심 이벤트만 빠르게 스캔되도록 가독성을 높였습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/2_2.png',
+        alt: 'WALLD 포트폴리오 그리드 시안',
+        heading: '(포트폴리오 그리드 캡션)',
+        lines: [
+          '· 실제 시공 이미지를 Vue 카드 그리드 컴포넌트로 정돈해, 다양한 작업을 빠르게 훑고 비교할 수 있도록 구현했습니다.',
+          '· 카드 하단 정보 영역은 props로 고정 레이아웃을 유지하고, 콘텐츠는 배열 기반 렌더링으로 교체/확장이 쉽도록 구성했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/2_3.png',
+        alt: 'WALLD 컨택트 섹션 시안',
+        heading: '(컨택트 캡션)',
+        lines: [
+          '· 좌측 타이틀/우측 폼을 Vue 섹션 컴포넌트로 분리해 문의 목적을 명확히 하고 입력 흐름을 단순화했습니다.',
+          '· 입력 필드는 v-model로 상태를 관리하고, 제출 버튼은 폼 검증/전송 로직 이벤트 핸들링으로 묶어 전환 행동이 한 번에 끝나도록 설계했습니다.',
+        ],
+      },
+    ],
+  },
+  kpet: {
+    title: 'K-PETFAIR',
+    introLines: [
+      '기존 페이지는 전시 일정과 지역 정보가 분산돼 원하는 정보를 빠르게 찾기 어려웠습니다.',
+      '이를 개선하기 위해 방문자가 한눈에 비교할 수 있도록 정보 우선순위를 재정렬했습니다.',
+    ],
+    colors: [
+      { dot: '#0f1116', code: '#0f1116' },
+      { dot: '#ff2d55', code: '#ff2d55' },
+      { dot: '#ffffff', code: '#ffffff' },
+    ],
+    period: '4일',
+    contribution: '100%',
+    programBadges: [
+      { type: 'html', label: '5' },
+      { type: 'js', label: 'JS' },
+      { type: 'css', label: '3' },
+    ],
+    introImage: './assets/img/details/m3.png',
+    introAlt: 'K-PETFAIR 상세 시안',
+    sections: [
+      {
+        image: './assets/img/details/3_1.png',
+        alt: 'K-PETFAIR 전시일정 슬라이드 시안',
+        heading: '(전시일정 슬라이드 캡션)',
+        lines: [
+          '· 전시 일정을 포스터 슬라이드로 구성해 날짜·지역을 한눈에 비교할 수 있게 했습니다.',
+          '· 좌우 전환만으로 다음 일정으로 넘어가며 탐색 부담을 줄였습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/3_2.png',
+        alt: 'K-PETFAIR 전시소개 갤러리 시안',
+        heading: '(전시소개 갤러리 캡션)',
+        lines: [
+          '· 전시 현장 사진을 그리드로 모아 규모와 분위기를 한눈에 전달했습니다.',
+          '· 텍스트 설명보다 이미지 중심으로 어떤 행사인지 빠르게 이해하게 했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/3_3.png',
+        alt: 'K-PETFAIR 전시 카테고리 시안',
+        heading: '(전시 카테고리 캡션)',
+        lines: [
+          '· 카테고리별 대표 이미지를 카드 형태로 정리해, 전시 품목을 빠르게 훑을 수 있게 했습니다.',
+          '· 한 화면에서 비교가 되도록 동일한 그리드/비율로 구성해 탐색 흐름을 단순화했습니다.',
+        ],
+      },
+    ],
+  },
+  samsung: {
+    title: 'Samsung Design',
+    introLines: [
+      '메인 타이틀을 크게 노출해 브랜드 성격을 즉시 각인시키고, 아래 카드 그리드로 콘텐츠를 빠르게 훑도록 구성했습니다.',
+    ],
+    colors: [
+      { dot: '#111111', code: '#111111' },
+      { dot: '#ffffff', code: '#ffffff' },
+    ],
+    period: '5일',
+    contribution: '100%',
+    programBadges: [
+      { type: 'html', label: '5' },
+      { type: 'js', label: 'JS' },
+      { type: 'css', label: '3' },
+    ],
+    introImage: './assets/img/details/m4.png',
+    introAlt: 'SAMSUNG DESIGN AWARDS 상세 시안',
+    sections: [
+      {
+        image: './assets/img/details/4_1.png',
+        alt: 'Samsung Design 그리드 시스템 시안',
+        heading: '(그리드 시스템 캡션)',
+        lines: [
+          '· 콘텐츠를 카드 그리드로 구성해 제목과 요약, 이미지를 한 화면에서 빠르게 비교할 수 있게 했습니다.',
+          '· 상단 내비와 본문 카드 비율을 고정해 섹션이 바뀌어도 시각 리듬이 유지되도록 설계했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/4_2.png',
+        alt: 'Samsung Design 뉴스레터 구독 폼 시안',
+        heading: '(뉴스레터 구독 폼 캡션)',
+        lines: [
+          '· 입력 항목을 그리드로 정리해, 필요한 정보만 빠르게 작성할 수 있게 구성했습니다.',
+          '· 수신 주기/관심 분야를 옵션으로 분리하고, CTA(구독하기)를 하단에 고정해 완료 흐름을 명확히 했습니다.',
+        ],
+      },
+    ],
+  },
+  lemona: {
+    title: 'LEMONA',
+    introLines: [
+      '기존 랜딩은 제품 정보가 분산돼 비교·선택에 시간이 걸렸습니다.',
+      '이를 개선하기 위해 인지 → 비교 → 전환 흐름으로 재구성하고, React 컴포넌트로 섹션을 모듈화했습니다.',
+    ],
+    colors: [
+      { dot: '#ffffff', code: '#ffffff' },
+      { dot: '#222222', code: '#222222' },
+      { dot: '#fee993', code: '#fee993' },
+    ],
+    period: '5일',
+    contribution: '100%',
+    programBadges: [
+      { type: 'react', label: 'REACT' },
+    ],
+    introImage: './assets/img/details/m5.png',
+    introAlt: 'LEMONA 상세 시안',
+    sections: [
+      {
+        image: './assets/img/details/5_1.png',
+        alt: 'LEMONA 신제품 섹션 시안',
+        heading: '(신제품 캡션)',
+        lines: [
+          '· 신제품 섹션을 React 캐러셀 컴포넌트 기반으로 구성해, 한 화면에서 대표 제품 3개를 빠르게 탐색/선택할 수 있도록 구성했습니다.',
+          '· 가격/할인 정보는 props로 분리해 하단 영역을 고정하고, 슬라이드 전환 시에도 정보 흐름이 끊기지 않도록 설계했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/5_2.png',
+        alt: 'LEMONA 브랜드 배너 시안',
+        heading: '(브랜드 배너 캡션)',
+        lines: [
+          '· 브랜드 배너를 배경/키비주얼/카드 영역으로 분리한 React 섹션 컴포넌트로 구성해, 브랜드 톤앤매너를 일관되게 유지했습니다.',
+          '· 우측 추천 상품 카드는 데이터 배열 기반 렌더링으로 구현해, 상품 교체/확장 시 코드 수정 비용을 최소화했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/5_3.png',
+        alt: 'LEMONA 리뷰 섹션 시안',
+        heading: '(리뷰 섹션 캡션)',
+        lines: [
+          '· 실시간 리뷰 리스트 렌더링(데이터 기반) 그리드 컴포넌트로 구현해 이미지·별점·요약 정보를 빠르게 스캔할 수 있게 구성했습니다.',
+          '· 더보기는 상태(state) 기반 인터랙션으로 처리해, 탐색 흐름을 유지하면서 핵심 리뷰만 우선 노출되도록 설계했습니다.',
+        ],
+      },
+    ],
+  },
+  kauai: {
+    title: '카우아이 씨앤씨',
+    introLines: [
+      '라운드 프레임/은은한 배경 그라데이션으로 시선을 중앙에 모으고, 네비·아이콘은 헤더에 고정해 접근성을 유지했습니다.',
+    ],
+    colors: [
+      { dot: '#f6f2e8', code: '#f6f2e8' },
+      { dot: '#162a2f', code: '#162a2f' },
+      { dot: '#0e5f67', code: '#0e5f67' },
+    ],
+    period: '5일',
+    contribution: '100%',
+    programBadges: [
+      { type: 'html', label: '5' },
+      { type: 'js', label: 'JS' },
+      { type: 'css', label: '3' },
+    ],
+    introImage: './assets/img/details/m6.png',
+    introAlt: 'KAUAI COFFEE 상세 시안',
+    sections: [
+      {
+        image: './assets/img/details/6_1.png',
+        alt: '카우아이 원두 오리진 루트 카드 섹션 시안',
+        heading: '(원두 오리진 루트 카드 섹션)',
+        lines: [
+          '· 원두가 컵에 담기기까지의 과정을 4개 카드로 나눠, 단계별 특징을 한 화면에서 빠르게 훑을 수 있게 구성했습니다.',
+          '· 이미지 중심 카드 + 짧은 설명으로 정보 밀도를 줄이고, 동일한 그리드/라운드 스타일로 리듬감 있게 이어지도록 정리했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/6_2.png',
+        alt: '카우아이 뉴스레터 팔로우 CTA 섹션 시안',
+        heading: '(뉴스레터·팔로우 CTA 섹션)',
+        lines: [
+          '· 원두/농장 소식을 가장 먼저 받을 수 있도록, 팔로우 아이콘과 뉴스레터 구독 폼을 한 영역에 묶어 CTA를 명확히 했습니다.',
+          '· 좌측은 감성 이미지를 배치해 분위기를 유지하고, 우측은 입력+버튼을 크게 하여 가입 흐름이 빠르게 끝나도록 구성했습니다.',
+        ],
+      },
+      {
+        image: './assets/img/details/6_3.png',
+        alt: '카우아이 블렌드 추천 폼 섹션 시안',
+        heading: '(블렌드 추천 폼 섹션)',
+        lines: [
+          '· 무드와 향을 선택하면 어울리는 원두를 추천받을 수 있도록, 입력·버튼·결과 영역을 한 카드 안에 단순하게 구성했습니다.',
+          '· 선택값에 따라 결과가 바로 갱신되는 구조로 만들어, 탐색 시간을 줄이고 맞춤 경험을 강조했습니다.',
+        ],
+      },
+    ],
+  },
+};
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const isTouchDevice = () => (
@@ -427,7 +726,7 @@ const positionImageCloseButton = () => {
   if (!$image_modal.hasClass('is_open')) return;
 
   const cardRect = $image_card[0].getBoundingClientRect();
-  const offset = window.matchMedia('(max-width: 700px)').matches ? 10 : 14;
+  const offset = window.matchMedia('(max-width: 700px)').matches ? 6 : 8;
   const top = Math.max(offset, Math.round(cardRect.top + offset));
   const right = Math.max(offset, Math.round(window.innerWidth - cardRect.right + offset));
 
@@ -437,25 +736,205 @@ const positionImageCloseButton = () => {
   });
 };
 
-const openImageModal = (imageSrc) => {
+const parseImageSet = (rawSetValue) => (
+  String(rawSetValue || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean)
+);
+
+const renderHomeTemplate = (templateKey) => {
+  const data = HOME_TEMPLATE_DATA[templateKey];
+  const $template = $('#preview_home_template');
+  if (!data || $template.length === 0) return false;
+
+  const introHtml = (data.introLines || [])
+    .map((line) => $('<div>').text(line).html())
+    .join('<br />');
+
+  $('#home_tpl_title').text(data.title || '');
+  $('#home_tpl_intro').html(introHtml);
+
+  const colors = data.colors || [];
+  [0, 1, 2].forEach((index) => {
+    const color = colors[index];
+    const $set = $(`#home_tpl_color${index + 1}_set`);
+    const $dot = $(`#home_tpl_color${index + 1}_dot`);
+    const $code = $(`#home_tpl_color${index + 1}_code`);
+    if (!color) {
+      $set.css('display', 'none');
+      $dot.css('display', 'none');
+      $code.css('display', 'none').text('');
+      return;
+    }
+    $set.css('display', 'inline-flex');
+    $dot.css({
+      background: color.dot || '#111111',
+      display: 'inline-block',
+    });
+    $code.css('display', '').text(color.code || '');
+  });
+
+  $('#home_tpl_period').text(data.period || '');
+  $('#home_tpl_contribution').text(data.contribution || '');
+  const $program = $('#home_tpl_program');
+  $program.empty();
+  const badges = Array.isArray(data.programBadges) ? data.programBadges : [];
+  if (badges.length > 0) {
+    badges.forEach((badge) => {
+      const type = String(badge.type || 'text').replace(/[^a-z0-9_-]/gi, '').toLowerCase() || 'text';
+      const $badge = $('<span>').addClass(`program-badge ${type}`);
+      const iconImageSrc = PROGRAM_BADGE_IMAGE_SOURCES[type];
+      const iconSvg = PROGRAM_BADGE_ICONS[type];
+      if (iconImageSrc) {
+        const resolvedIconImageSrc = new URL(iconImageSrc, window.location.href).href;
+        $badge
+          .addClass('is_icon')
+          .attr('role', 'img')
+          .attr('aria-label', `${type} icon`);
+        $('<img>', {
+          src: resolvedIconImageSrc,
+          alt: '',
+          decoding: 'async',
+          loading: 'lazy',
+          'aria-hidden': 'true',
+        }).appendTo($badge);
+      } else if (iconSvg) {
+        $badge
+          .addClass('is_icon')
+          .attr('role', 'img')
+          .attr('aria-label', `${type} icon`)
+          .html(iconSvg);
+      } else {
+        $badge.text(String(badge.label || '').trim());
+      }
+      $badge.appendTo($program);
+    });
+  } else {
+    $program.text(data.program || '');
+  }
+
+  const introImageSrc = new URL(data.introImage || '', window.location.href).href;
+  $('#home_tpl_intro_image')
+    .attr('src', introImageSrc)
+    .attr('alt', data.introAlt || `${data.title || '상세'} 메인 시안`);
+
+  const $sections = $('#home_tpl_sections');
+  $sections.empty();
+  (data.sections || []).forEach((section) => {
+    const sectionImageSrc = new URL(section.image || '', window.location.href).href;
+    const $section = $('<section>').addClass('content-section');
+    $('<img>', {
+      src: sectionImageSrc,
+      alt: section.alt || `${data.title || '상세'} 섹션 시안`,
+      class: 'section-image',
+      loading: 'lazy',
+      decoding: 'async',
+    }).appendTo($section);
+    $('<h2>').text(section.heading || '(상세 캡션)').appendTo($section);
+    (section.lines || []).forEach((line) => {
+      $('<p>').text(line).appendTo($section);
+    });
+    $sections.append($section);
+  });
+
+  return true;
+};
+
+const openImageModal = ({ imageSrc, imageSet = [], template = '' }) => {
   if (!imageSrc) return;
   const resolvedSrc = new URL(imageSrc, window.location.href).href;
   const $image_modal = $('#image_modal');
+  const $image_card = $image_modal.find('.image_card');
   const $preview_image = $('#preview_image');
-  if ($image_modal.length === 0 || $preview_image.length === 0) return;
-  $preview_image.attr('src', resolvedSrc);
-  $image_modal.addClass('is_open').attr('aria-hidden', 'false');
+  const $preview_templates = $image_modal.find('.preview_home1');
+  const $preview_stack = $('#preview_stack');
+  if ($image_modal.length === 0 || $image_card.length === 0 || $preview_image.length === 0) return;
+
+  const hasTemplateData = template ? renderHomeTemplate(template) : false;
+  if (hasTemplateData) {
+    if ($preview_templates.length) {
+      $preview_templates.attr('hidden', '').attr('aria-hidden', 'true');
+    }
+    $('#preview_home_template').removeAttr('hidden').attr('aria-hidden', 'false');
+    if ($preview_stack.length) {
+      $preview_stack.attr('hidden', '').attr('aria-hidden', 'true').empty();
+    }
+    $preview_image.attr('src', '').attr('hidden', '').attr('aria-hidden', 'true');
+    $image_card.addClass('is_home1');
+    $image_modal.removeAttr('inert').addClass('is_open').attr('aria-hidden', 'false');
+    syncBackButtonVisibility();
+    requestAnimationFrame(positionImageCloseButton);
+    return;
+  }
+
+  const normalizedSet = Array.isArray(imageSet) ? imageSet.filter(Boolean) : [];
+  if (normalizedSet.length > 0 && $preview_stack.length) {
+    if ($preview_templates.length) {
+      $preview_templates.attr('hidden', '').attr('aria-hidden', 'true');
+    }
+    $preview_stack.empty();
+    normalizedSet.forEach((src, index) => {
+      const stackSrc = new URL(src, window.location.href).href;
+      $('<img>', {
+        src: stackSrc,
+        alt: `detail preview ${index + 1}`,
+        loading: index === 0 ? 'eager' : 'lazy',
+        decoding: 'async',
+      }).appendTo($preview_stack);
+    });
+    $preview_stack.removeAttr('hidden').attr('aria-hidden', 'false');
+    $preview_image.attr('src', '').attr('hidden', '').attr('aria-hidden', 'true');
+  } else {
+    if ($preview_templates.length) {
+      $preview_templates.attr('hidden', '').attr('aria-hidden', 'true');
+    }
+    if ($preview_stack.length) {
+      $preview_stack.attr('hidden', '').attr('aria-hidden', 'true').empty();
+    }
+    $preview_image.attr('src', resolvedSrc).removeAttr('hidden').attr('aria-hidden', 'false');
+  }
+  $image_card.removeClass('is_home1');
+
+  $image_modal.removeAttr('inert').addClass('is_open').attr('aria-hidden', 'false');
   syncBackButtonVisibility();
   requestAnimationFrame(positionImageCloseButton);
 };
 
 const closeImageModal = () => {
   const $image_modal = $('#image_modal');
+  const $image_card = $image_modal.find('.image_card');
   const $preview_image = $('#preview_image');
+  const $preview_templates = $image_modal.find('.preview_home1');
+  const $preview_stack = $('#preview_stack');
   const $image_close = $image_modal.find('.image_close');
   if ($image_modal.length === 0 || $preview_image.length === 0) return;
-  $image_modal.removeClass('is_open').attr('aria-hidden', 'true');
-  $preview_image.attr('src', '');
+
+  const modalEl = $image_modal[0];
+  const active = document.activeElement;
+  if (active && modalEl && modalEl.contains(active)) {
+    const fallbackFocusEl = imageModalReturnFocusEl && document.contains(imageModalReturnFocusEl)
+      ? imageModalReturnFocusEl
+      : $('#thumb_row .thumb_item.is_selected').get(0);
+    if (fallbackFocusEl && fallbackFocusEl.focus) {
+      fallbackFocusEl.focus({ preventScroll: true });
+    } else if (active.blur) {
+      active.blur();
+    }
+  }
+  imageModalReturnFocusEl = null;
+
+  $image_modal.removeClass('is_open').attr('aria-hidden', 'true').attr('inert', '');
+  $preview_image.attr('src', '').removeAttr('hidden').attr('aria-hidden', 'false');
+  if ($preview_templates.length) {
+    $preview_templates.attr('hidden', '').attr('aria-hidden', 'true');
+  }
+  if ($preview_stack.length) {
+    $preview_stack.attr('hidden', '').attr('aria-hidden', 'true').empty();
+  }
+  if ($image_card.length) {
+    $image_card.removeClass('is_home1');
+  }
   $image_close.css({
     top: '',
     right: '',
@@ -667,7 +1146,14 @@ $(function () {
       event.preventDefault();
       event.stopPropagation();
       const $item = $(this).closest('.thumb_item');
-      openImageModal($item.data('home'));
+      imageModalReturnFocusEl = this;
+      const imageSet = parseImageSet($item.attr('data-home-set'));
+      const template = String($item.attr('data-home-template') || '').trim();
+      openImageModal({
+        imageSrc: $item.data('home'),
+        imageSet,
+        template,
+      });
     });
     $thumb_row.on('click', '.thumb_btn_link', function () {
       // Keep marquee animation from staying paused after opening a new tab.

@@ -28,7 +28,6 @@ $(function () {
 
     requestAnimationFrame(function () {
       $overlay.addClass('is_active');
-      $enterBtn[0].focus();
     });
 
     $(document).trigger('intro:opened');

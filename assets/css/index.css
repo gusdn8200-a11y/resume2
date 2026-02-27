@@ -205,7 +205,6 @@ body{
   --bubble_min_font_size: 10.5;
   font-weight: 600;
   letter-spacing: 0.03em;
-  line-height: 1.5;
   margin:0;
   width: 56%;
   max-width: 56%;
@@ -662,7 +661,6 @@ body{
   width: min(1920px, 80vw);
   height: min(1000px, 92vh);
   border-radius: 18px;
-  overflow:hidden;
   border:1px solid rgba(255,255,255,.12);
   background: rgba(0,0,0,.85);
   box-shadow: var(--shadow);

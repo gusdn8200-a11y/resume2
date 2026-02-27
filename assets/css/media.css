@@ -105,6 +105,11 @@
     height: 42px;
     font-size: 21px;
   }
+  .rail_disclaimer{
+    left: max(14px, env(safe-area-inset-left));
+    right: max(14px, env(safe-area-inset-right));
+    text-align: left;
+  }
   .thumbs{
     margin-top: 6px;
     padding-bottom: 10px;
@@ -195,6 +200,13 @@
     --badge_radius: 12px;
   }
   .page{height: 100svh; min-height: 100svh; padding: 18px 16px 10px}
+  .rail_disclaimer{
+    left: max(12px, env(safe-area-inset-left));
+    right: max(12px, env(safe-area-inset-right));
+    font-size: 11px;
+    line-height: 1.45;
+    text-align: left;
+  }
   .header{
     order: 0;
     position: relative;
@@ -495,6 +507,10 @@
 }
 
 @media (max-width: 420px){
+  .rail_disclaimer{
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
+  }
   .bubble_text{
     --bubble_min_font_size: 9;
     font-size: clamp(9.4px, 3.4vw, 11.4px);

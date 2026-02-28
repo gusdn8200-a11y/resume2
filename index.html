@@ -15,7 +15,6 @@
 </head>
 
 <body>
-  <!-- 인트로 오버레이 -->
   <div class="intro_overlay" id="intro_overlay" aria-hidden="true" inert>
     <div class="intro_inner">
       <div class="intro_word" aria-label="Portfolio">
@@ -40,8 +39,6 @@
     <div class="intro_en">Park Hyunwoo</div>
     <div class="intro_year" aria-hidden="true">&copy; 2026</div>
   </div>
-  <!-- /인트로 오버레이 -->
-  <!-- 인트로 복귀 버튼 -->
   <button
     type="button"
     class="intro_back_btn"
@@ -49,10 +46,7 @@
     aria-controls="intro_overlay"
     aria-label="포트폴리오 인트로 화면으로 이동">
   </button>
-  <!-- /인트로 복귀 버튼 -->
-  <!-- 메인 페이지 레이아웃 -->
   <div class="page">
-    <!-- 상단 프로필/역량 카드 영역 -->
     <header class="header">
       <section class="card intro">
         <h3><span class="dot"></span>PROFILE</h3>
@@ -97,9 +91,6 @@
         </ul>
       </section>
     </header>
-    <!-- /상단 프로필/역량 카드 영역 -->
-
-    <!-- 메인 카피(히어로) 영역 -->
     <main class="hero">
       <div class="hero_row">
         <div id="speech_stream" class="speech_stream" aria-live="polite" aria-atomic="false"></div>
@@ -108,9 +99,6 @@
         </div>
       </div>
     </main>
-    <!-- /메인 카피(히어로) 영역 -->
-
-    <!-- 프로젝트 영상 슬라이드 영역 -->
     <footer class="rail">
       <div class="rail_inner">
         <div class="thumbs" id="thumb_row" aria-label="Projects">
@@ -183,21 +171,15 @@
           </div>
         </div>
       </div>
-      <!-- 영상 슬라이드 네비게이션 -->
       <div class="thumb_nav" aria-label="Project slider controls">
         <button class="thumb_nav_btn thumb_prev_btn" id="thumb_prev" type="button" aria-label="이전 프로젝트">&#8592;</button>
         <button class="thumb_nav_btn thumb_next_btn" id="thumb_next" type="button" aria-label="다음 프로젝트">&#8594;</button>
       </div>
-      <!-- /영상 슬라이드 네비게이션 -->
       <p class="rail_disclaimer">
         본 사이트는 개인 포트폴리오 목적이며, 표기된 브랜드 및 로고의 권리는 각 소유자에게 있습니다.
       </p>
     </footer>
-    <!-- /프로젝트 영상 슬라이드 영역 -->
   </div>
-  <!-- /메인 페이지 레이아웃 -->
-
-  <!-- 프로젝트 영상 미리보기 모달 -->
   <div class="video_modal" id="video_modal" aria-hidden="true">
     <div class="video_card" role="dialog" aria-modal="true" aria-label="Project preview">
       <div class="video_hint">
@@ -211,9 +193,6 @@
              loop></video>
     </div>
   </div>
-  <!-- /프로젝트 영상 미리보기 모달 -->
-
-  <!-- 상세페이지 디자인 에셋 미리보기 모달 -->
   <div class="image_modal" id="image_modal" aria-hidden="true" inert>
     <div class="image_card" role="dialog" aria-modal="true" aria-label="Image preview">
       <button class="image_close" type="button" aria-label="Close image preview">✖</button>
@@ -267,9 +246,6 @@
       <div id="preview_stack" class="preview_stack" hidden aria-hidden="true"></div>
     </div>
   </div>
-  <!-- /상세페이지 디자인 에셋 미리보기 모달 -->
-
-  <!-- 디자인 에셋(포토샵) 드로어 패널 -->
   <div class="drawer_bg" id="ps_backdrop" aria-hidden="true"></div>
   <aside class="drawer drawer_left" id="ps_panel" aria-hidden="true">
     <button class="drawer_close" type="button" aria-label="Close photoshop panel">✖</button>
@@ -454,13 +430,9 @@
       </div>
     </div>
   </aside>
-  <!-- /디자인 에셋(포토샵) 드로어 패널 -->
-
-  <!-- 스크립트 로드 영역 -->
   <script src="./assets/js/jquery.min.js"></script>
   <script src="./assets/js/intro.js"></script>
   <script src="./assets/js/easter-egg.js"></script>
   <script src="./assets/js/index.js"></script>
-  <!-- /스크립트 로드 영역 -->
 </body>
 </html>

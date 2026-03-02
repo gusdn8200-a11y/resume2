@@ -224,13 +224,16 @@ body{
   text-shadow: 0 1px 3px rgba(34,45,64,.08);
   padding: 0;
 }
-.bubble_item.slot_1 .bubble_text,
-.bubble_item.slot_3 .bubble_text{
+.bubble_item.slot_1 .bubble_text{
   top: 58%;
+}
+.bubble_item.slot_3 .bubble_text{
+  top: 60%;
 }
 .bubble_item.slot_2 .bubble_text{
   width: 58%;
   max-width: 58%;
+  top: 57%;
 }
 .bubble_text.is_multiline{
   --bubble_min_font_size: 9.4;
@@ -243,12 +246,14 @@ body{
   max-width: 60%;
   height: 46%;
   max-height: 46%;
-  top: 51%;
+  top: 54%;
   line-height: 1.28;
 }
-.bubble_item.slot_1 .bubble_text.is_multiline,
-.bubble_item.slot_3 .bubble_text.is_multiline{
+.bubble_item.slot_1 .bubble_text.is_multiline{
   top: 55%;
+}
+.bubble_item.slot_3 .bubble_text.is_multiline{
+  top: 57%;
 }
 .copy{
   width: clamp(420px, 44vw, 740px);

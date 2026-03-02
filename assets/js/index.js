@@ -2,7 +2,7 @@ const DEFAULT_VIDEO = './assets/img/v_1.mp4';
 const DEFAULT_POSTER = './assets/img/s_1.png';
 
 const copyTexts = [
-  '디자인 반영부터 <span class="copy_key">인터랙션 구현</span>까지 다룹니다.',
+  '디자인 반영부터 <span class="copy_key">인터랙션 구현</span>까지 완성합니다.',
   '<span class="copy_key">컴포넌트 구조화</span>로 유지보수를 단순화합니다.',
   '인터랙션은 필요한 만큼만,<br><span class="copy_key">정확하게</span> 구현합니다.',
   '아래 프로젝트에서<br><span class="copy_key">확인해 보세요</span> <span class="copy_arrow">↓</span>',

@@ -349,6 +349,18 @@ const syncMobileBubbleModeClass = () => {
   document.body.classList.toggle('is_mobile_bubble_mode', active);
   return active;
 };
+const resolveBubbleHeightTier = () => {
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  if (viewportHeight <= 780) return 'compact';
+  if (viewportHeight <= 920) return 'short';
+  return 'normal';
+};
+const syncBubbleHeightTierClass = () => {
+  const tier = resolveBubbleHeightTier();
+  document.body.classList.remove('is_bubble_height_normal', 'is_bubble_height_short', 'is_bubble_height_compact');
+  document.body.classList.add(`is_bubble_height_${tier}`);
+  return tier;
+};
 const getBubbleDelay = (delayMs) => (
   isMobileBubbleMode() ? Math.round(delayMs * MOBILE_BUBBLE_SLOW_FACTOR) : delayMs
 );
@@ -1091,6 +1103,7 @@ $(function () {
     document.body.classList.add('is_touch');
   }
   let currentMobileBubbleMode = syncMobileBubbleModeClass();
+  syncBubbleHeightTierClass();
   syncBackButtonVisibility();
 
   setupCopyStage();
@@ -1205,6 +1218,7 @@ $(function () {
     const nextMobileBubbleMode = syncMobileBubbleModeClass();
     const modeChanged = nextMobileBubbleMode !== currentMobileBubbleMode;
     currentMobileBubbleMode = nextMobileBubbleMode;
+    syncBubbleHeightTierClass();
 
     if (nextMobileBubbleMode) {
       const $bubbles = $('#speech_stream .bubble_item');

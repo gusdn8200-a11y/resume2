@@ -74,10 +74,10 @@
   }
   .bubble_text{
     --bubble_min_font_size: 10;
-    width: 56%;
-    max-width: 56%;
-    height: 42%;
-    max-height: 42%;
+    width: var(--bubble_text_width);
+    max-width: var(--bubble_text_width);
+    height: var(--bubble_text_height);
+    max-height: var(--bubble_text_height);
     font-size: clamp(11px, 1vw, 13.5px);
   }
   .bubble_text.is_multiline{
@@ -360,10 +360,10 @@
   }
   .bubble_text{
     --bubble_min_font_size: 9.5;
-    width: 56%;
-    max-width: 56%;
-    height: 42%;
-    max-height: 42%;
+    width: var(--bubble_text_width);
+    max-width: var(--bubble_text_width);
+    height: var(--bubble_text_height);
+    max-height: var(--bubble_text_height);
     font-size: clamp(10.2px, 2.9vw, 12.8px);
   }
   .bubble_text.is_multiline{

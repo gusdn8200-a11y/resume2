@@ -105,13 +105,37 @@ body.is_cover_ui_open .intro_back_btn{
 
 .intro_word{
   display:flex;
+  flex-direction: column;
   justify-content:center;
-  gap: 9px;
-  font-size: clamp(38px, 6vw, 96px);
-  letter-spacing: .17em;
+  gap: clamp(4px, 1vw, 10px);
+  font-size: clamp(34px, 5.2vw, 78px);
+  letter-spacing: 0;
+  line-height: 1.06;
   font-weight: 700;
   color: rgba(255,243,230,.97);
-  text-shadow: 0 6px 24px rgba(0,0,0,.28);
+  text-shadow: 0 5px 20px rgba(0,0,0,.21);
+}
+
+.intro_line{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1px, .28vw, 5px);
+  white-space: nowrap;
+}
+
+.intro_line_1 .intro_letter{
+  --dx: -140px;
+  --dy: -90px;
+}
+
+.intro_line_2 .intro_letter{
+  --dx: 170px;
+  --dy: 80px;
+}
+
+.intro_word_break{
+  margin-left: .34em;
 }
 
 .intro_letter{

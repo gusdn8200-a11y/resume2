@@ -56,12 +56,6 @@ body{
   align-items: stretch;
   transition: opacity .34s var(--ease), filter .34s var(--ease);
 }
-.header .card:nth-child(1),
-.header .card:nth-child(2){
-  position: relative;
-  left: 32px;
-}
-
 .card{
   min-width: 0;
   padding: 12px 10px 12px;

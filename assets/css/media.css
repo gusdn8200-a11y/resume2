@@ -23,10 +23,6 @@
     padding-top: 6px;
     padding-bottom: 6px;
   }
-  .header .card:nth-child(1),
-  .header .card:nth-child(2){
-    left: 0;
-  }
   .card{flex: 1 1 0; padding: 10px 8px 12px}
   .card:nth-child(1){flex: 1 1 0}
   .card h3{

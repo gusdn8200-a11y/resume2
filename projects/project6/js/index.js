@@ -28,8 +28,7 @@
     });
 
     [...mainNavMenu.querySelectorAll("a")].forEach((link) => {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
+      link.addEventListener("click", () => {
         if (!mobileMenuQuery.matches) return;
         setMenuState(false);
       });

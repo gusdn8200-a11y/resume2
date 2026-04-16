@@ -82,8 +82,10 @@
   .copy{
     width: clamp(290px, 42vw, 510px);
     max-width: 56vw;
+    justify-content: flex-start;
   }
   .hero_text{
+    text-align: left;
     font-size: clamp(20px, 2.1vw, 28px);
   }
   .rail{
@@ -251,58 +253,60 @@
   }
   .hero{
     order: 2;
-    min-height: 236px;
-    padding-top: 8px;
+    min-height: auto;
+    padding-top: 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
   .hero_row{
-    position: relative;
-    flex-direction: row;
+    position: static;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    min-height: 190px;
-    gap: 0;
+    justify-content: flex-start;
+    min-height: auto;
+    gap: 18px;
   }
   .copy{
+    order: 1;
     margin-top: 0;
     min-height: auto;
     width: 100%;
     max-width: none;
-    padding-left: min(42vw, 176px);
-    justify-content: flex-start;
+    padding-left: 0;
+    justify-content: center;
     padding-right: 0;
     position: relative;
     z-index: 1;
   }
   .hero_text{
     width: 100%;
-    max-width: 18ch;
-    text-align: left;
-    font-size: clamp(17px, 4.2vw, 22px);
-    line-height: 1.42;
+    max-width: 15ch;
+    text-align: center;
+    font-size: clamp(18px, 5.1vw, 24px);
+    line-height: 1.4;
   }
   .speech_stream{
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: min(46vw, 194px);
-    height: min(46vw, 194px);
-    align-self: auto;
-    transform: translateY(-50%);
+    order: 2;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(58vw, 228px);
+    height: min(58vw, 228px);
+    align-self: center;
+    transform: none;
     z-index: 2;
     pointer-events: none;
   }
   .bubble_item{
-    width: clamp(128px, 31vw, 162px);
+    width: clamp(120px, 31vw, 156px);
   }
   body:not(.is_mobile_bubble_mode) .copy{
-    padding-left: min(50vw, 220px);
+    padding-left: 0;
   }
   body:not(.is_mobile_bubble_mode) .speech_stream{
-    width: min(50vw, 210px);
-    height: min(50vw, 210px);
+    width: min(52vw, 210px);
+    height: min(52vw, 210px);
   }
   body:not(.is_mobile_bubble_mode) .bubble_item{
     width: clamp(96px, 24vw, 112px);

@@ -305,7 +305,7 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   width: clamp(420px, 44vw, 740px);
   max-width: 56vw;
   display:flex;
-  justify-content:flex-end;
+  justify-content:flex-start;
   align-items:center;
 }
 
@@ -316,7 +316,7 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   line-height: 1.35;
   font-size: clamp(24px, 2.35vw, 40px);
   color: var(--fg);
-  text-align: right;
+  text-align: left;
   text-shadow: 0 2px 6px rgba(34,45,64,.18);
 }
 .rail_disclaimer{

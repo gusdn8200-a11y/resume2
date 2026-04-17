@@ -520,6 +520,20 @@
   }
 }
 
+@media (min-width: 1281px){
+  .speech_stream{
+    height: clamp(300px, 36vh, 420px);
+  }
+  .bubble_item{
+    width: clamp(170px, 13vw, 220px);
+  }
+  .copy{
+    padding-left: clamp(60px, 6vw, 120px);
+    padding-top: clamp(16px, 2.5vh, 36px);
+    padding-bottom: clamp(16px, 2.5vh, 36px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce){
   .intro_overlay{ transition:none; }
   .intro_letter{

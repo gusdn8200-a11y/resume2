@@ -520,16 +520,20 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   outline-offset: 2px;
 }
 .thumb_btn_view{
-  min-width: 178px;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
   min-height: 46px;
   border-radius: 14px;
   padding: 9px 14px;
   line-height: 1.15;
 }
 .thumb_btn_link{
+  flex: 1 1 0;
   flex-direction: column;
   gap: 2px;
-  min-width: 178px;
+  min-width: 0;
   text-align: center;
   line-height: 1.15;
   white-space: normal;

@@ -10,6 +10,11 @@
   --secondary:#e98aa1;
   --ease: cubic-bezier(.2,.8,.2,1);
   --shadow: 0 30px 90px rgba(0,0,0,.55);
+  --shadow-sm: 0 8px 18px rgba(0,0,0,.18);
+  --t-fast: .2s var(--ease);
+  --t-base: .28s var(--ease);
+  --t-slow: .34s var(--ease);
+  --border-glass: rgba(255,255,255,.12);
   --badge_size: 86px;
   --badge_gap: 10px;
   --badge_right: 32px;
@@ -18,6 +23,15 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
+.sr_only{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
 body{
   margin:0;
   font-family: var(--font-base);
@@ -54,7 +68,7 @@ body{
   padding-bottom: 12px;
   height: 35vh;
   align-items: stretch;
-  transition: opacity .34s var(--ease), filter .34s var(--ease);
+  transition: opacity var(--t-slow), filter var(--t-slow);
 }
 .card{
   min-width: 0;
@@ -162,7 +176,7 @@ body{
   opacity: 0;
   will-change: opacity, transform;
   transform: translate3d(var(--bubble_enter_x), 8px, 0);
-  transition: opacity .34s cubic-bezier(.2,.8,.2,1), transform .34s cubic-bezier(.2,.8,.2,1);
+  transition: opacity var(--t-slow), transform var(--t-slow);
 }
 .bubble_item.is_left{
   --bubble_enter_x: -8px;
@@ -356,7 +370,7 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   display:flex;
   align-items:center;
   overflow: visible;
-  transition: opacity .34s var(--ease), filter .34s var(--ease);
+  transition: opacity var(--t-slow), filter var(--t-slow);
 }
 
 .rail_inner{
@@ -416,7 +430,7 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   border-radius: 22px;
   border: 1px solid rgba(255,255,255,.08);
   background: rgba(255,255,255,.04);
-  box-shadow: 0 8px 18px rgba(0,0,0,.18);
+  box-shadow: var(--shadow-sm);
   position:relative;
   overflow:hidden;
   cursor:pointer;
@@ -657,7 +671,7 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   aspect-ratio: 16 / 9;
   border-radius: 18px;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border-glass);
   background: rgba(0,0,0,.45);
   box-shadow: var(--shadow);
   transform: translateY(8px) scale(.985);
@@ -713,7 +727,7 @@ body:not(.is_mobile_bubble_mode).is_bubble_height_compact .bubble_item.slot_3{
   width: min(1920px, 80vw);
   height: min(1000px, 92vh);
   border-radius: 18px;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border-glass);
   background: rgba(0,0,0,.85);
   box-shadow: var(--shadow);
   position:relative;

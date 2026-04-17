@@ -136,10 +136,10 @@ body{
 }
 
 .speech_stream{
-  width: clamp(250px, 28vw, 420px);
-  height: clamp(230px, 31vh, 330px);
+  width: clamp(236px, 26vw, 390px);
+  height: clamp(220px, 29vh, 308px);
   position: relative;
-  top: -62px;
+  top: -56px;
 }
 
 .bubble_item{
@@ -153,7 +153,7 @@ body{
   --bubble_text_multiline_width: var(--bubble_text_width);
   --bubble_text_multiline_height: 44%;
   --bubble_text_multiline_line_height: 1.33;
-  width: clamp(188px, 15.8vw, 258px);
+  width: clamp(176px, 14.7vw, 238px);
   aspect-ratio: 1 / 1;
   position: absolute;
   display: flex;

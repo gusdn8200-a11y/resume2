@@ -9,17 +9,19 @@
   <meta property="og:description" content="사용자가 머무는 1초, 시선이 닿는 1px의 가치를 고민합니다.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css" onload="this.rel='stylesheet'">
   <link rel="stylesheet" href="assets/css/portfolio.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body class="intro-lock">
 
-  <!-- ===== INTRO ===== -->
+  <!-- 인트로 -->
   <div class="intro" id="intro" aria-modal="true" role="dialog" aria-label="포트폴리오 인트로">
     <div class="intro__noise" aria-hidden="true"></div>
     <div class="intro__particles" id="introParticles" aria-hidden="true"></div>
 
-    <!-- loading bar -->
+    <!-- 로딩 바 -->
     <div class="intro__bar-wrap" aria-hidden="true">
       <div class="intro__bar" id="introBar"></div>
     </div>
@@ -45,12 +47,12 @@
     <p class="intro__en" aria-hidden="true">Park Hyunwoo</p>
   </div>
 
-  <!-- Scroll Progress -->
+  <!-- 스크롤 진행바 / 커서 -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="cursor-dot"  id="cursorDot"  aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-  <!-- Navigation -->
+  <!-- 내비게이션 -->
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__logo" aria-label="박현우 홈">&lt;HW <span class="nav__dot">/&gt;</span></a>
@@ -66,7 +68,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu -->
+  <!-- 모바일 메뉴 -->
   <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="내비게이션 메뉴" aria-hidden="true">
     <ul role="list">
       <li><a href="#about">About</a></li>
@@ -77,7 +79,7 @@
 
   <main id="main">
 
-    <!-- ===== HERO ===== -->
+    <!-- 히어로 -->
     <section class="hero" id="hero" aria-label="소개">
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__grid" id="heroGrid"></div>
@@ -85,7 +87,7 @@
         <div class="hero__ghost" aria-hidden="true">HW</div>
       </div>
 
-      <!-- moving ticker behind content -->
+      <!-- 티커 (배경) -->
       <div class="hero__ticker" aria-hidden="true">
         <div class="hero__ticker-track">
           <span>RESPONSIVE UI</span><span class="hero__ticker-dot">·</span>
@@ -107,7 +109,7 @@
           박현우 · Park Hyunwoo
         </p>
 
-        <!-- typewriter headline -->
+        <!-- 타이프라이터 헤드라인 -->
         <h1 class="hero__headline reveal-up d1">
           <span class="hero__headline-pre">사용자를 위해</span><br>
           <span class="hero__type-wrap">
@@ -133,7 +135,7 @@
       </div>
     </section>
 
-    <!-- ===== MARQUEE ===== -->
+    <!-- 마퀴 -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
         <span>Web Developer · Publisher</span><span class="marquee__sep">·</span>
@@ -159,7 +161,7 @@
       </div>
     </div>
 
-    <!-- ===== ABOUT ===== -->
+    <!-- 소개 -->
     <section class="about" id="about" aria-labelledby="about-heading">
       <div class="container">
         <header class="sec-head reveal">
@@ -241,7 +243,7 @@
       </div>
     </section>
 
-    <!-- ===== STATS ===== -->
+    <!-- 통계 -->
     <div class="stats" id="stats" aria-label="주요 수치">
       <div class="container">
         <ul class="stats__grid" role="list">
@@ -265,7 +267,7 @@
       </div>
     </div>
 
-    <!-- ===== CAPABILITIES ===== -->
+    <!-- 역량 -->
     <section class="caps" id="caps" aria-labelledby="caps-heading">
       <div class="container">
         <header class="sec-head reveal">
@@ -306,7 +308,7 @@
       </div>
     </section>
 
-    <!-- ===== WORK ===== -->
+    <!-- 작업 -->
     <section class="work" id="work" aria-labelledby="work-heading">
       <div class="container">
         <header class="sec-head reveal">
@@ -524,7 +526,7 @@
       </div>
     </section>
 
-    <!-- ===== CONTACT ===== -->
+    <!-- 연락처 -->
     <section class="contact" id="contact" aria-labelledby="contact-heading">
       <div class="container">
         <header class="sec-head reveal">
@@ -557,7 +559,7 @@
     </div>
   </footer>
 
-  <!-- ===== INTRO BACK BUTTON (top-left) ===== -->
+  <!-- 인트로 뒤로가기 버튼 -->
   <button class="btn-intro-back" id="btnIntro" aria-label="인트로로 돌아가기" title="인트로로 돌아가기">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
       <path d="M7 1L1 7l6 6M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -565,7 +567,7 @@
     <span>Intro</span>
   </button>
 
-  <!-- ===== FLOATING BUTTONS (bottom-right) ===== -->
+  <!-- 플로팅 버튼 -->
   <div class="float-btns" id="floatBtns" aria-label="빠른 이동">
     <button class="float-btn float-btn--top" id="btnTop" aria-label="맨 위로" title="맨 위로">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

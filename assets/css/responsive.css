@@ -1,0 +1,91 @@
+/* 반응형 — Park Hyunwoo Portfolio */
+
+/* 960px 이하 */
+@media (max-width: 960px) {
+  .projects { grid-template-columns: repeat(2, 1fr); }
+  .proj:nth-child(3n)  { border-right: 1px solid var(--border); }
+  .proj:nth-child(2n)  { border-right: none; }
+  .proj:nth-child(n+4) { border-bottom: 1px solid var(--border); }
+  .proj:nth-child(n+5) { border-bottom: none; }
+
+  .stats__grid { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(1),
+  .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
+
+  .about__layout { grid-template-columns: 1fr; }
+  .about__profile {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .about__photo-wrap { width: 80px; height: 80px; flex-shrink: 0; }
+
+  .contact__email { font-size: clamp(1.25rem, 5vw, 2rem); }
+  .caps__grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+}
+
+/* 768px 이하 */
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .nav__toggle { display: flex; }
+
+  .caps__grid { grid-template-columns: 1fr 1fr; }
+  .about__skills { grid-template-columns: 1fr 1fr; }
+  .timeline__item { grid-template-columns: 100px 1fr; }
+
+  .btn-intro-back span { display: none; }
+  .btn-intro-back { padding: 0.55rem; border-radius: 50%; width: 40px; height: 40px; justify-content: center; }
+
+  .float-btns { bottom: 1.25rem; right: 1.25rem; }
+  .float-btn  { width: 40px; height: 40px; }
+
+  .hero__ticker { display: none; }
+
+  .contact__meta { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .contact__divider { display: none; }
+
+  .footer__inner { justify-content: center; text-align: center; }
+}
+
+/* 560px 이하 */
+@media (max-width: 560px) {
+  .caps__grid { grid-template-columns: 1fr; }
+
+  .projects { grid-template-columns: 1fr; }
+  .proj { border-right: none !important; }
+  .proj:nth-child(n)  { border-bottom: 1px solid var(--border); }
+  .proj:last-child    { border-bottom: none; }
+
+  .stats__grid { grid-template-columns: repeat(2, 1fr); }
+  .about__skills { grid-template-columns: 1fr; gap: 2rem; }
+  .hero__scroll  { display: none; }
+  .timeline__item { grid-template-columns: 1fr; gap: 0.2rem; }
+
+  .intro__name { font-size: clamp(3rem, 18vw, 6rem); }
+  .hero__content { padding-block: clamp(3rem, 10vh, 6rem); }
+  .hero__ghost { font-size: clamp(10rem, 55vw, 18rem); opacity: 0.6; }
+
+  .about__profile { flex-direction: column; align-items: flex-start; }
+
+  .contact__body { width: 100%; }
+  .contact__socials { flex-wrap: wrap; }
+
+  .btn-intro-back { top: calc(var(--nav-h) + 0.5rem); left: 0.75rem; }
+  .float-btns { bottom: 1rem; right: 1rem; }
+}
+
+/* 터치 디바이스 — 커서 숨김 */
+@media (hover: none) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+}
+
+/* 모션 감소 선호 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .marquee__track { animation: none !important; }
+  .wi { transform: none !important; transition: none !important; }
+}

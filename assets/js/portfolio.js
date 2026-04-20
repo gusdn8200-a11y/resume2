@@ -112,15 +112,113 @@
 })();
 
 
-const glow = document.getElementById('cursorGlow');
-if (glow && window.matchMedia('(pointer: fine)').matches) {
+// Precision Cursor
+(function () {
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !window.matchMedia('(pointer: fine)').matches) {
+    if (dot)  dot.style.display  = 'none';
+    if (ring) ring.style.display = 'none';
+    return;
+  }
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
   window.addEventListener('mousemove', e => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top  = e.clientY + 'px';
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
   }, { passive: true });
-} else if (glow) {
-  glow.style.display = 'none';
-}
+
+  const tick = () => {
+    rx += (mx - rx) * 0.11;
+    ry += (my - ry) * 0.11;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(tick);
+  };
+  tick();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
+  });
+})();
+
+
+// Text Scramble
+(function () {
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·—/';
+  const scramble = el => {
+    const orig = el.textContent;
+    let iter = 0;
+    const total = Math.ceil(orig.length * 1.6);
+    const id = setInterval(() => {
+      el.textContent = orig.split('').map((ch, i) => {
+        if (ch === ' ') return ' ';
+        if (iter / total > i / orig.length) return ch;
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+      if (++iter > total) { el.textContent = orig; clearInterval(id); }
+    }, 28);
+  };
+
+  const scIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      scramble(e.target);
+      scIO.unobserve(e.target);
+    });
+  }, { threshold: 0.8 });
+  document.querySelectorAll('.sec-title').forEach(el => scIO.observe(el));
+})();
+
+
+// Word Mask Reveal
+(function () {
+  const splitWords = el => {
+    let idx = 0;
+    const walk = node => {
+      if (node.nodeType === 3) {
+        const parts = node.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            frag.appendChild(document.createTextNode(part));
+          } else {
+            const wm = document.createElement('span');
+            wm.className = 'wm';
+            const wi = document.createElement('span');
+            wi.className = 'wi';
+            wi.style.transitionDelay = `${idx * 52}ms`;
+            wi.textContent = part;
+            idx++;
+            wm.appendChild(wi);
+            frag.appendChild(wm);
+          }
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1) {
+        Array.from(node.childNodes).forEach(walk);
+      }
+    };
+    Array.from(el.childNodes).forEach(walk);
+  };
+
+  const wrEls = document.querySelectorAll('[data-wr]');
+  wrEls.forEach(splitWords);
+
+  const wrIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in-view');
+      wrIO.unobserve(e.target);
+    });
+  }, { threshold: 0.25, rootMargin: '0px 0px -40px 0px' });
+  wrEls.forEach(el => wrIO.observe(el));
+})();
 
 
 const progressBar  = document.getElementById('scrollProgress');

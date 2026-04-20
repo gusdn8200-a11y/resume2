@@ -1,5 +1,25 @@
 /* Portfolio — Park Hyunwoo */
 
+// 테마 토글
+(function () {
+  const html = document.documentElement;
+  const btn  = document.getElementById('themeToggle');
+  if (!btn) return;
+
+  const update = isDark => {
+    btn.setAttribute('aria-label', isDark ? '라이트 모드 켜기' : '다크 모드 켜기');
+  };
+  update(html.dataset.theme === 'dark');
+
+  btn.addEventListener('click', () => {
+    const isDark = html.dataset.theme === 'dark';
+    html.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('theme', html.dataset.theme);
+    update(!isDark);
+  });
+})();
+
+
 (function () {
   const intro     = document.getElementById('intro');
   const btn       = document.getElementById('introEnter');
@@ -50,10 +70,14 @@
       intro.style.display = 'none';
       document.body.classList.remove('intro-lock');
       if (main) main.style.visibility = '';
+      const backBtn = document.getElementById('btnIntro');
+      if (backBtn) backBtn.classList.add('visible');
     }, 950);
   };
 
   const reopen = () => {
+    const backBtn = document.getElementById('btnIntro');
+    if (backBtn) backBtn.classList.remove('visible');
     window.scrollTo({ top: 0, behavior: 'instant' });
     intro.style.display = '';
     requestAnimationFrame(() => {
@@ -265,8 +289,7 @@ const onScroll = () => {
     }
   }
 
-  if (floatBtns)    floatBtns.classList.toggle('visible', s > 400);
-  if (introBackBtn) introBackBtn.classList.toggle('visible', s > 400);
+  if (floatBtns) floatBtns.classList.toggle('visible', s > 400);
 };
 
 window.addEventListener('scroll', onScroll, { passive: true });

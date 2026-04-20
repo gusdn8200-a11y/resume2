@@ -320,7 +320,7 @@
               <div class="proj__top">
                 <div class="proj__meta">
                   <h3 class="proj__name">LEMONA</h3>
-                  <p class="proj__type">E-Commerce · React</p>
+                  <p class="proj__type">E-Commerce · React 19</p>
                 </div>
                 <a href="https://gusdn8200-a11y.github.io/react-app/"
                    target="_blank" rel="noopener noreferrer"
@@ -331,14 +331,13 @@
                 </a>
               </div>
               <p class="proj__desc">
-                19년 연속 브랜드 대상 No.1 비타민, 레모나 공식 쇼핑몰.
-                React 19 기반으로 제품 라인업·이벤트·뉴스 섹션을 컴포넌트 단위로 구현했습니다.
+                레모나 공식 쇼핑몰을 React 19로 재구성했습니다. 제품·이벤트·뉴스 섹션을 각각 독립 컴포넌트로 분리해 재사용 가능한 구조로 설계했습니다.
               </p>
               <ul class="proj__points" aria-label="주요 구현">
-                <li>Swiper 기반 제품 카루셀 슬라이더</li>
-                <li>data.js 분리로 데이터-뷰 구조 분리</li>
-                <li>Nav 열기·닫기 상태 관리 (useState)</li>
-                <li>모바일~데스크톱 완전 반응형</li>
+                <li>Swiper.js를 커스터마이징해 자동재생·루프·페이지네이션 카루셀 구현</li>
+                <li>콘텐츠 데이터를 data.js로 분리해 컴포넌트와 데이터를 완전히 독립</li>
+                <li>useState로 모바일 Nav 상태 관리 및 열림 시 body 스크롤 잠금 처리</li>
+                <li>breakpoint 3단계 미디어 쿼리로 모바일~데스크톱 레이아웃 대응</li>
               </ul>
               <ul class="proj__tags" aria-label="사용 기술" role="list">
                 <li>React 19</li>
@@ -367,19 +366,18 @@
                 </a>
               </div>
               <p class="proj__desc">
-                벽면 광고·아트 매칭 스타트업 WALLD의 서비스 플랫폼.
-                Vue 3 + Vite SPA로 브랜드 스토리, 포트폴리오 갤러리, 문의 폼을 구현했습니다.
+                벽면 광고·아트 매칭 스타트업 WALLD의 서비스 플랫폼을 Vue 3 + Vite SPA로 구축했습니다. Composition API 기반으로 컴포넌트를 설계하고 상태를 관리했습니다.
               </p>
               <ul class="proj__points" aria-label="주요 구현">
-                <li>스크롤 진입 시 카운터 애니메이션 (120+ 벽면·98% 완료율)</li>
-                <li>5개 미디어 카테고리 갤러리 필터링</li>
-                <li>회사 연혁 타임라인 (2020–2025)</li>
-                <li>문의 폼 + 이스터에그 구현</li>
+                <li>IntersectionObserver로 뷰포트 진입 시 숫자 카운팅 애니메이션 구현</li>
+                <li>미디어 카테고리 5종을 버튼 필터로 전환하고 CSS transition으로 부드럽게 처리</li>
+                <li>ref·computed로 연혁 데이터를 관리하고 타임라인 UI로 시각화</li>
+                <li>특정 요소 클릭 시 숨겨진 메시지가 나타나는 이스터에그 인터랙션 삽입</li>
               </ul>
               <ul class="proj__tags" aria-label="사용 기술" role="list">
                 <li>Vue 3</li>
                 <li>Vite</li>
-                <li>SPA</li>
+                <li>Composition API</li>
                 <li>Animation</li>
                 <li>gh-pages</li>
               </ul>
@@ -403,20 +401,19 @@
                 </a>
               </div>
               <p class="proj__desc">
-                세계 판매 1위, 100년 헤리티지를 가진 진로 브랜드의 이커머스 쇼케이스.
-                제품 스토리부터 구매까지 자연스러운 사용자 흐름을 설계했습니다.
+                진로 브랜드 이커머스 쇼케이스를 라이브러리 없이 Vanilla JS만으로 구현했습니다. 슬라이더·필터 등 핵심 UI를 직접 설계해 의존성을 최소화했습니다.
               </p>
               <ul class="proj__points" aria-label="주요 구현">
-                <li>6종 과일 소주 자동 카루셀 (인디케이터·드래그)</li>
-                <li>도수별 제품 필터링 (일반·프리미엄·오리지널)</li>
-                <li>브랜드 헤리티지 스토리텔링 섹션</li>
-                <li>뉴스레터 갤러리 12개 이미지 그리드</li>
+                <li>setInterval 자동슬라이드에 touchstart/touchend 드래그 이벤트를 직접 구현</li>
+                <li>data-type 속성 기반 필터링으로 도수별 제품 카드 노출 제어</li>
+                <li>스크롤 위치 계산으로 헤리티지 섹션에 CSS transform 패럴랙스 효과 적용</li>
+                <li>CSS Grid auto-fill로 뉴스레터 이미지 12개를 유동적 갤러리 레이아웃으로 구성</li>
               </ul>
               <ul class="proj__tags" aria-label="사용 기술" role="list">
                 <li>Vanilla JS</li>
-                <li>Carousel</li>
+                <li>Custom Carousel</li>
                 <li>Filter</li>
-                <li>Responsive</li>
+                <li>Parallax</li>
               </ul>
             </article>
           </li>
@@ -438,18 +435,17 @@
                 </a>
               </div>
               <p class="proj__desc">
-                대한민국 대표 펫산업 박람회 K-PETFAIR 2026 공식 웹사이트.
-                이벤트 정보, 사전등록, 전시 소개를 한 페이지에 담았습니다.
+                K-PETFAIR 2026 공식 사이트를 단일 페이지로 구성했습니다. 정보 탐색부터 사전등록까지 이탈 없이 이어지는 사용자 흐름을 고려해 섹션 구조를 설계했습니다.
               </p>
               <ul class="proj__points" aria-label="주요 구현">
-                <li>6개 전시 카테고리 호버 설명 카드</li>
-                <li>전시 일정·미리보기 슬라이더 (6컷)</li>
-                <li>20+ 파트너사 로고 섹션</li>
-                <li>Google Maps 위치 연동</li>
+                <li>전시 카테고리 카드에 CSS :hover 오버레이로 상세 설명이 전환되는 UI 구현</li>
+                <li>prev/next 버튼과 인디케이터를 가진 커스텀 슬라이더를 JS로 직접 제작</li>
+                <li>Google Maps Embed API를 iframe으로 연동해 행사장 위치 정보 제공</li>
+                <li>파트너사 로고 20개 이상을 CSS Grid + object-fit으로 균일하게 배열</li>
               </ul>
               <ul class="proj__tags" aria-label="사용 기술" role="list">
                 <li>Vanilla JS</li>
-                <li>Slider</li>
+                <li>Custom Slider</li>
                 <li>Google Maps</li>
                 <li>Responsive</li>
               </ul>
@@ -473,19 +469,18 @@
                 </a>
               </div>
               <p class="proj__desc">
-                "The Human Side of Technology" 테마의 삼성 디자인 어워드 & CES 2026 포럼 사이트.
-                글로벌 디자이너 세션과 뉴스레터 시스템을 구현했습니다.
+                삼성 디자인 어워드 & CES 2026 포럼 사이트를 구현했습니다. 글로벌 디자이너 세션 아카이브와 다단계 뉴스레터 구독 폼을 중점적으로 작업했습니다.
               </p>
               <ul class="proj__points" aria-label="주요 구현">
-                <li>Mauro Porcini 등 글로벌 디자이너 패널 소개</li>
-                <li>뉴스레터 구독 폼 — 5개 필드 + 유효성 검사</li>
-                <li>직군·관심분야·구독 주기 선택 UI</li>
-                <li>Fortune Brainstorm 세션 아카이브</li>
+                <li>5개 입력 필드에 정규식 기반 유효성 검사를 작성하고 오류 메시지를 인라인 표시</li>
+                <li>직군·관심분야·구독주기 체크박스 그룹의 선택 상태를 배열로 관리</li>
+                <li>디자이너 카드에 hover 시 소속·분야가 오버레이되는 인터랙션 적용</li>
+                <li>IntersectionObserver로 섹션별 진입 애니메이션을 처리해 스크롤 성능 확보</li>
               </ul>
               <ul class="proj__tags" aria-label="사용 기술" role="list">
                 <li>Vanilla JS</li>
                 <li>Form Validation</li>
-                <li>Newsletter</li>
+                <li>IntersectionObserver</li>
                 <li>Responsive</li>
               </ul>
             </article>
@@ -508,20 +503,19 @@
                 </a>
               </div>
               <p class="proj__desc">
-                하와이 카우아이섬 원산지 프리미엄 커피 브랜드 이커머스.
-                원두 스토리텔링부터 무드 기반 추천까지 전체 구매 여정을 설계했습니다.
+                카우아이 프리미엄 커피 이커머스를 구현했습니다. 단순 쇼핑몰을 넘어 원두 추천 로직과 원산지 스토리텔링으로 브랜드 경험을 강화하는 데 집중했습니다.
               </p>
               <ul class="proj__points" aria-label="주요 구현">
-                <li>12종 원두 — Fruity · Balanced · Bold · Decaf 필터</li>
-                <li>무드(Calm·Fresh·Deep) × 아로마 블렌드 추천 엔진</li>
-                <li>4단계 원산지 루트 스토리텔링</li>
-                <li>SNS 팔로우 + 뉴스레터 구독 섹션</li>
+                <li>data-tag 속성으로 12종 원두를 4가지 카테고리 버튼 필터링 구현</li>
+                <li>무드·아로마 선택값을 조합해 조건에 맞는 원두를 추천하는 JS 로직 작성</li>
+                <li>스크롤 진입 순서에 따라 4단계 원산지 텍스트가 순차적으로 나타나는 시퀀스 애니메이션 구현</li>
+                <li>뉴스레터 폼 제출 시 감사 메시지로 전환되는 상태 처리 및 UI 피드백 구현</li>
               </ul>
               <ul class="proj__tags" aria-label="사용 기술" role="list">
                 <li>Vanilla JS</li>
-                <li>Filter</li>
+                <li>Filter Logic</li>
                 <li>Recommendation</li>
-                <li>Storytelling</li>
+                <li>Scroll Animation</li>
               </ul>
             </article>
           </li>

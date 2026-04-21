@@ -66,6 +66,7 @@
 
   const dismiss = () => {
     intro.classList.add('leaving');
+    sessionStorage.setItem('introDismissed', 'true');
     setTimeout(() => {
       intro.style.display = 'none';
       document.body.classList.remove('intro-lock');
@@ -76,6 +77,7 @@
   };
 
   const reopen = () => {
+    sessionStorage.removeItem('introDismissed');
     const backBtn = document.getElementById('btnIntro');
     if (backBtn) backBtn.classList.remove('visible');
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -104,6 +106,17 @@
 
   window._introReopen = reopen;
 })();
+
+// 페이지 로드 시 인트로 상태 복원
+if (sessionStorage.getItem('introDismissed')) {
+  const intro = document.getElementById('intro');
+  const main = document.getElementById('main');
+  if (intro) intro.style.display = 'none';
+  if (main) main.style.visibility = '';
+  document.body.classList.remove('intro-lock');
+  const backBtn = document.getElementById('btnIntro');
+  if (backBtn) backBtn.classList.add('visible');
+}
 
 
 (function () {
@@ -375,6 +388,17 @@ if (window.matchMedia('(pointer: fine)').matches) {
     });
   });
 }
+
+// 프로젝트 카드 클릭 네비게이션 (항상 새창)
+document.querySelectorAll('.proj').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    const linkBtn = card.querySelector('.proj__link-btn');
+    if (linkBtn?.href) {
+      window.open(linkBtn.href, '_blank');
+    }
+  });
+});
 
 
 if (window.matchMedia('(pointer: fine)').matches) {

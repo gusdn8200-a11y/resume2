@@ -1041,6 +1041,7 @@ section { padding-block: clamp(5rem, 12vh, 9rem); }
   position: relative;
   overflow: hidden;
   transition: background 0.35s var(--ease);
+  cursor: pointer;
 }
 .proj:nth-child(3n)  { border-right: none; }
 .proj:nth-child(n+4) { border-bottom: none; }

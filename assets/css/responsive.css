@@ -6,7 +6,16 @@
   .proj:nth-child(3n)  { border-right: 1px solid var(--border); }
   .proj:nth-child(2n)  { border-right: none; }
   .proj:nth-child(n+4) { border-bottom: 1px solid var(--border); }
-  .proj:nth-child(n+5) { border-bottom: none; }
+  .proj:nth-child(n+7) { border-bottom: none; }
+
+  .proj--featured {
+    grid-column: span 2;
+    border-right: none;
+  }
+  .proj--featured .proj__inner {
+    display: flex;
+    flex-direction: column;
+  }
 
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
   .stat:nth-child(2) { border-right: none; }
@@ -57,6 +66,7 @@
 
   .projects { grid-template-columns: 1fr; }
   .proj { border-right: none !important; }
+  .proj--featured { grid-column: span 1; }
   .proj:nth-child(n)  { border-bottom: 1px solid var(--border); }
   .proj:last-child    { border-bottom: none; }
 

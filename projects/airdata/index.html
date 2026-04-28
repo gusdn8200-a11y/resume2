@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirData · 대기질 모니터링</title>
+  <meta name="description" content="지역별 대기질 현황 및 주간 추이 모니터링 서비스">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css" onload="this.rel='stylesheet'">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <div class="nav__brand">
+        <svg class="nav__icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <circle cx="9" cy="9" r="2.5" fill="var(--accent)"/>
+          <circle cx="9" cy="9" r="6"   stroke="var(--accent)" stroke-width="1"   opacity="0.4"/>
+          <circle cx="9" cy="9" r="8.5" stroke="var(--accent)" stroke-width="0.5" opacity="0.15"/>
+        </svg>
+        <span class="nav__name">AirData</span>
+      </div>
+
+      <div class="nav__mid">
+        <label for="regionSelect" class="sr-only">지역 선택</label>
+        <select class="region-select" id="regionSelect">
+          <option>서울</option>
+          <option>경기</option>
+          <option>인천</option>
+          <option>부산</option>
+          <option>대구</option>
+        </select>
+      </div>
+
+      <div class="nav__right">
+        <span class="nav__time" id="navTime">—</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- 현황 헤더 -->
+    <div class="page-header">
+      <div class="container">
+        <div class="page-header__inner">
+          <div class="page-header__left">
+            <p class="page-header__label">통합 대기질 지수</p>
+            <div class="grade-badge" id="gradeBadge" data-grade="moderate">보통</div>
+            <p class="page-header__region" id="headerRegion">서울</p>
+          </div>
+          <div class="page-header__right">
+            <p class="page-header__date" id="headerDate">—</p>
+            <p class="page-header__note">※ 모의 데이터 기반 프로토타입</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 측정 항목 카드 -->
+    <section class="metrics" aria-label="측정 항목">
+      <div class="container">
+        <ul class="metrics__grid" id="metricsGrid" role="list"></ul>
+      </div>
+    </section>
+
+    <!-- 주간 추이 차트 -->
+    <section class="chart-section" aria-labelledby="chartTitle">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="chartTitle">주간 추이</h2>
+          <div class="chart-legend" aria-hidden="true">
+            <span class="legend pm25">PM2.5</span>
+            <span class="legend pm10">PM10</span>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="weeklyChart" aria-label="주간 대기질 추이 차트" role="img"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 측정소별 현황 -->
+    <section class="stations" aria-labelledby="stationsTitle">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" id="stationsTitle">측정소별 현황</h2>
+        </div>
+        <div class="stations__grid" id="stationsGrid" role="list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__note">※ 본 서비스는 포트폴리오 목적으로 제작된 프로토타입이며, 표시 데이터는 모의 데이터입니다.</p>
+      <p class="footer__copy">© 2026 Park Hyunwoo</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

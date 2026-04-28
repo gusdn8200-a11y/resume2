@@ -1230,6 +1230,15 @@ section { padding-block: clamp(5rem, 12vh, 9rem); }
 .contact__social-link:hover::after { width: 100%; }
 .contact__social-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
+.contact__dl-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--accent);
+}
+.contact__dl-link::after { background: var(--accent); }
+.contact__dl-link:hover { color: var(--accent-hover); }
+
 /* 푸터 */
 .footer { border-top: 1px solid var(--border); padding-block: 1.75rem; background: var(--bg); }
 .footer__inner {

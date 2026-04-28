@@ -848,6 +848,7 @@ section { padding-block: clamp(5rem, 12vh, 9rem); }
   margin-bottom: 1.25rem;
 }
 .about__body { font-size: 0.9375rem; color: var(--muted-2); line-height: 1.95; }
+.about__body + .about__body { margin-top: 0.875rem; }
 
 .timeline { border-left: 1px solid var(--border); padding-left: 1.75rem; }
 .timeline__item {
